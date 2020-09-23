@@ -10,9 +10,9 @@ const Greeting = ({ currentUser, logout, login}) => {
         <Link to="/login">Log In</Link>
       </div>
 
-      <Link to="/signup">
-        <button className="splash-signup">Sign Up</button>
-      </Link>
+      {/* <Link to="/signup"> */}
+      <button className="splash-signup"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Sign Up</a></button>
+      {/* </Link> */}
 
       
     </nav>
