@@ -1,0 +1,58 @@
+.splashbody {
+     display: flex;
+     background-color: rgb(195, 245, 60);
+     height: 1000px;
+     align-items: center;
+     border-bottom-color: black;
+     border-bottom-style: solid;
+     border-bottom-width: 1px;
+     box-shadow: inset 0 7px 5px -7px rgba(0,0,0,0.3);
+}
+
+.splashbodywords {
+     position: relative;
+     display: flex;
+     flex-direction: column;
+     height: 340px;
+     width: 450px;
+     justify-content: space-between;
+     left: 335px;
+     align-items: left;
+}
+
+.splashbodyheader {
+     font-family: "Capsule Sans Display",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+     font-size: 52px;
+     font-style: normal;
+     font-weight: 500;
+     line-height: 60px;
+}
+
+.splashbodydescription {
+     font-family: "Capsule Sans Display",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+     font-size: 24px;
+     font-style: normal;
+     font-weight: 500;
+     line-height: 36px;
+}
+
+.splashbody-signup {
+     background-color: #040d14;
+     color: white;
+     text-align: center;
+     align-items: center;
+     justify-content: center;
+     position: relative;
+     white-space: nowrap;
+     height: 48px;
+     min-width: 144px;
+     border-radius: 24px;
+     padding: 0 0px;
+     font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+     font-size: 18px;
+     font-weight: 700;
+}
+
+.splashbody-signup:hover {
+    filter: brightness(1.1);
+}

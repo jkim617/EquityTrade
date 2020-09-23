@@ -14,6 +14,7 @@ class SplashBody extends React.Component {
             <div className='splashbody'>
                 <SplashBodyWords />
             </div>
+     
         )
     }
 }
