@@ -8,23 +8,25 @@ import {
     HashRouter
 } from 'react-router-dom';
 
+import Splash from './splash/splash';
 import SignUpFormContainer from './session_form/signup_form_container';
 import LogInFormContainer from './session_form/login_form_container';
-import NavBar from './nav_bar/nav_bar';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
+import GreetingContainer from './greeting/greeting_container';
+
 
 
 const App = () => (
     <div>
-        <header>
-            
-        <NavBar />
+        <header className="nav-bar">
 
         
         </header>
         <Switch>
             <AuthRoute exact path="/login" component={LogInFormContainer} />
             <AuthRoute exact path="/signup" component={SignUpFormContainer} />
+            <Route exact path="/" component={Splash} />
+            
         </Switch>
     </div>
 );

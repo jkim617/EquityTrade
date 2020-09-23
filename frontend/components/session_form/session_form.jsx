@@ -58,13 +58,14 @@ class SessionForm extends React.Component {
 
     lnameField(formType) {
         if (formType === 'Sign up') {
-            return (<div>
+            return (
+                <div>
                     <input placeholder= "Last name" type="text"
                         value={this.state.lname}
                         onChange={this.update('lname')}
                         className="signup-input"
                     />
-            </div>)
+                </div>)
         }
     }
 
