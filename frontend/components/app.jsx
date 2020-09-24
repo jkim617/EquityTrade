@@ -9,8 +9,8 @@ import {
 } from 'react-router-dom';
 
 import Splash from './splash/splash';
-import SignUp from './signup/signup';
-import LogInFormContainer from './session_form/login_form_container';
+import SignUp from './signup_page/signup';
+import LogIn from './login_page/login';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import GreetingContainer from './greeting/greeting_container';
 
@@ -23,7 +23,7 @@ const App = () => (
         
         </header>
         <Switch>
-            <AuthRoute exact path="/login" component={LogInFormContainer} />
+            <AuthRoute exact path="/login" component={LogIn} />
             <AuthRoute exact path="/signup" component={SignUp} />
             <Route exact path="/" component={Splash} />
             
