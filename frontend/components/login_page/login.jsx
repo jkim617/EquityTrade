@@ -9,7 +9,7 @@ class LogIn extends React.Component {
         return(
             <div className="login-page">
                 <div className='login_pic'>
-                  I NEED A PICTURE HERE
+                    <img className='login-pic-1' src="https://cdn.robinhood.com/assets/generated_assets/cdfcb3cb965d71cf114d0aeb8f0a50cd.jpg" alt="a"/>
                 </div>
                 
                 <div className="login-right-container">

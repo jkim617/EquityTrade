@@ -9,8 +9,10 @@ class LearnDropdown extends React.Component {
     render() {
         return (
             <div className={this.props.arrow === 'up' ? 'learn-dropdown-up' : 'learn-dropdown-down'}>
-                <li className='learn-dropdown-hover'>Learn</li>
-                <li className='learn-dropdown-hover'>Snacks</li>
+                <div className={this.props.arrow === 'up' ? 'learn-dropdown-up-sub' : 'learn-dropdown-down-sub'}>
+                    <li className='learn-dropdown-hover'>Learn</li>
+                    <li className='learn-dropdown-hover'>Snacks</li>
+                </div>
             </div>
         )
     }

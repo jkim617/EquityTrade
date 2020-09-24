@@ -84,11 +84,11 @@ class SessionForm extends React.Component {
         );
     }
 
+
     render() {
         return (
             <div className="login-form-container">
                 <form onSubmit={this.handleSubmit} className="login-form-box">
-                    {this.renderErrors()}
                         <div className={this.formTypeClass() ? "signup-form" : 'login-form'}>
                             <div className='name-field'>
               
@@ -113,7 +113,7 @@ class SessionForm extends React.Component {
 
                             <div className={this.formTypeClass() ? "signup-password" : "login-password"}>
                                 <label className='login-label'>{this.formTypeClass() ? "" : "Password"}</label>
-                                    <input type="password" placeholder={this.formTypeClass() ? "Password" : ""}
+                                    <input type="password" placeholder={this.formTypeClass() ? "Password (min. 10 characters)" : ""}
                                     value={this.state.password}
                                     onChange={this.update('password')}
                                     className={this.formTypeClass() ? "signup-input" : "login-input"}
@@ -121,10 +121,13 @@ class SessionForm extends React.Component {
                             </div>
                             
                             <div className={this.formTypeClass() ? 'session-submit' : "session-submit-login"}>
-                            <input className={this.formTypeClass() ? "signup-submit" : "login-submit"} type="submit" value={this.props.submitButton} />
+                                <input className={this.formTypeClass() ? "signup-submit" : "login-submit"} type="submit" value={this.props.submitButton} />
+                                <div className={this.formTypeClass() ? 'signup-error' : 'login-error'}>{this.renderErrors()}</div>
                                 <div className='login-forgot'>
                                     {this.formTypeClass() ? "" : "Forgot your username or password?"}
                                 </div>
+                            
+                               
 
                                 <div className="signup-submit-links">
                                     <div className='signup-submit-started'>
@@ -133,9 +136,11 @@ class SessionForm extends React.Component {
 
                                     
                                     {this.formTypeClass() ? <Link className="signup-links-application" to='/login'>Log in to complete your application</Link> : ""}
-                                    
+                                
                                 </div>  
+                           
                             </div>
+                        
                         </div>
                 </form>
                 

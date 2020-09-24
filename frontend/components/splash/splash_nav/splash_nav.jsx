@@ -18,7 +18,7 @@ class SplashNav extends React.Component {
             <div className='splashnav'>
 
                 <div className='logo'>
-                    <Link to="/login">EquityTrade</Link>
+                    <Link to="/">EquityTrade</Link>
                 </div>
 
                 <SubNav />

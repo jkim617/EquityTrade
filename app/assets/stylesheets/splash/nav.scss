@@ -83,7 +83,7 @@
     position: absolute;
     top: 64px;
     left: 0;
-
+    box-shadow: 0px 7px 5px -7px rgba(0,0,0,0.3);
 }
 
 .products-dropdown-up li {
@@ -116,7 +116,12 @@
     position: absolute;
     top: 64px;
     left: 0;
+    box-shadow: 0px 7px 5px -7px rgba(0,0,0,0.3);
+}
 
+.learn-dropdown-up-sub {
+    display: flex;
+    margin-left: 50px;
 }
 
 

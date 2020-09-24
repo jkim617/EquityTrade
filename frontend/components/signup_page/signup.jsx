@@ -12,7 +12,7 @@ class SignUp extends React.Component {
                         <div className='signup-leftpage-content-1'>
                             <div className='signup-leftpage-content-1-1'>
                                 <div className='logo-1'>
-                                    <Link to="/login">EquityTrade</Link>
+                                    <Link to="/">EquityTrade</Link>
                                 </div>
 
                                 <div className="signup-description">
@@ -44,15 +44,17 @@ class SignUp extends React.Component {
                             
                             <div className="signup-leftpage-content-2-2">
                                 All securities and investments are offered to self-directed 
-                                customers by EquityTrade Financial, LLC, member FINRA & SIPC.
-                                Additional information about your broker can be found by clicking here.
+                                customers by EquityTrade Financial, LLC, member<a className='signup-links' href='httsp://www.finra.org'> FINRA </a> 
+                                & <a className='signup-links' href='https:/www.sipc.org'>SIPC</a>.
+                                Additional information about your broker can be found by clicking 
+                                <a className='signup-links' href="https://brokercheck.finra.org/"> here</a>.
                                 EquityTrade Financial, LLC is a wholly owned subsidiary of 
                                 EquityTrade Markets, Inc.
                             </div>
                             
                             <div className="signup-leftpage-content-2-3">
                                 Check the background of EquityTrade Financial LLC and EquityTrade Securities, 
-                                LLC on FINRA's BrokerCheck.
+                                LLC on <a className='signup-links' href='https://brokercheck.finra.org/'> FINRA's BrokerCheck</a>.
                             </div>
 
                             <div className="signup-leftpage-content-2-4"> 
@@ -83,8 +85,8 @@ class SignUp extends React.Component {
                         </div>
 
                         <div className="signup-rightpage-1-text">
-                                EquityTrade Financial is a member of SIPC. Securities in your 
-                                account are protected up to $500,000. For details, please see www.sipc.org.
+                            EquityTrade Financial is a member of SIPC. Securities in your 
+                            account are protected up to $500,000. For details, please see <a className='signup-links' href='https:/www.sipc.org'>www.sipc.org.</a>
                         </div>
 
                         <div className="signup-rightpage-1-header">

@@ -4,13 +4,10 @@
 }
 
 .login_pic {
-    display: flex;
     width: 50%;
-    background-color: rgb(245, 248, 250);
-    height: 720px;
-    align-items: center;
-    justify-content: center;
-    
+    overflow: hidden;
+    height: 100%;
+
 }
 
 .login-right-container {
@@ -55,6 +52,9 @@
     line-height: 1.5em;
     width: 100%;
     font: 400 13.3333px Arial;
+    &:focus{
+        border-color:rgb(0,200,5);
+    }
 }
 
 .login-input:hover {
@@ -85,7 +85,7 @@
     color: rgb(0,200,5);
     font-weight: 450;
     letter-spacing: -0.1px;
-    margin: 0 0 24px;
+    margin: 0 0 14px;
     font-family: "Capsule Sans Text", -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 13px;
     line-height: 20px;
@@ -114,5 +114,13 @@
     filter: brightness(0.9);
 }
 
+.login-error {
+    color: rgb(4,13,20);
+    font-family: "Capsule Sans Text", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: -0.1px;
+}
 
 
