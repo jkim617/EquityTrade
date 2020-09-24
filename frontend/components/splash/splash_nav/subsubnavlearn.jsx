@@ -1,5 +1,7 @@
 import React from 'react';
 
+import LearnDropdown from './learn_dropdown';
+
 class SubSubNavLearn extends React.Component {
     constructor(props) {
         super(props);
@@ -27,10 +29,13 @@ class SubSubNavLearn extends React.Component {
 
     render() {
         return (
-            <button className='subsubnavlearn' onClick={this.changeArrow}>
-                <div className='subsubnavlearnword'>Learn</div>
-                {this.renderArrow()}   
-            </button>
+            <div>
+                <button className='subsubnavlearn' onClick={this.changeArrow}>
+                    <div className='subsubnavlearnword'>Learn</div>
+                    {this.renderArrow()}   
+                </button>
+                <LearnDropdown arrow={this.state.arrow}/>
+            </div>
         )
     }
 }

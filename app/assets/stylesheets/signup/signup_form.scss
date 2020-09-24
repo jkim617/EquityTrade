@@ -1,0 +1,126 @@
+
+.login-form-box {
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.login-form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.name-field {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 25px;
+}
+
+.fname-input {
+    width: 50%;
+    padding-right: 24px;
+    flex-grow: 1;
+}
+
+.lname-input {
+    width: 50%;
+    flex-grow: 1;
+
+}
+
+.email-input {
+    padding-bottom: 25px;
+}
+
+.signup-username {
+    padding-bottom: 25px;
+}
+
+.signup-password {
+    padding-bottom: 25px;
+}
+
+.signup-input {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 13px;
+    color: black;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.1px;
+    text-align: left;
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(245,248,250);
+    background-color: rgb(245,248,250);
+    border-radius: 4px;
+    padding: 12px;
+    width: 100%;
+    height: 36px;
+}
+
+.signup-input:hover {
+    background-color: white;
+}
+
+.session-submit {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.signup-submit-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 24px;
+    
+}
+
+.signup-submit {
+    background-color: rgb(0,200,5);
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    min-width: 120px;
+    padding-left: 45px;
+    padding-right: 45px;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: -0.1px;
+    border-radius: 4px;
+}
+
+.signup-submit-started {
+    color: rgb(4,13,20);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.1px;
+}
+
+.signup-links-application {
+    color: rgb(0,200,5);
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: -0.1px;
+}
+
+
+
+
+
+
+

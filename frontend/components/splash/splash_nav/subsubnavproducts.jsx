@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ProductsDropdown from './products_dropdown';
+
 class SubSubNavProducts extends React.Component {
     constructor(props) {
         super(props);
@@ -25,13 +27,17 @@ class SubSubNavProducts extends React.Component {
         }
     }
 
+
     render() {
         return(
-            <button className='subsubnavproducts' onClick={this.changeArrow}>
-                <div className='subsubnavproductsword'>Products</div>
-                {this.renderArrow()}
-            </button>
-
+            <div>
+                <button className='subsubnavproducts' onClick={this.changeArrow}>
+                    <div className='subsubnavproductsword'>Products</div>
+                    {this.renderArrow()}
+                </button>
+                
+                <ProductsDropdown arrow={this.state.arrow}/>
+            </div>
         )
     }
 }
