@@ -5,9 +5,13 @@
 
 .login_pic {
     width: 50%;
-    overflow: hidden;
     height: 100%;
+}
 
+.login-pic-1 {
+    width: 100%;
+    height: 895px;
+    object-fit: cover;
 }
 
 .login-right-container {
@@ -22,6 +26,7 @@
     margin-right: 52px;
     width: 412px;
     flex-direction: column;
+    margin-bottom: 67px;
 }
 
 .login-username {

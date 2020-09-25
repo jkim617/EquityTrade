@@ -41,7 +41,7 @@ class SessionForm extends React.Component {
                         <input placeholder="Email" type="text"
                         value={this.state.email}
                         onChange={this.update('email')}
-                        className="signup-input"
+                        className={this.formTypeClass() && this.props.errors.length > 0 && this.state.email.length === 0 ? "signup-input-red" : "signup-input"}
                     />
                 </div>)
         }
@@ -54,7 +54,7 @@ class SessionForm extends React.Component {
                     <input placeholder="First name" type="text"
                         value={this.state.fname}
                         onChange={this.update('fname')}
-                        className="signup-input"
+                        className={this.formTypeClass() && this.props.errors.length > 0 && this.state.fname.length === 0 ? "signup-input-red" : "signup-input"}
                     />
                 </div>)
         }
@@ -67,32 +67,28 @@ class SessionForm extends React.Component {
                     <input placeholder= "Last name" type="text"
                         value={this.state.lname}
                         onChange={this.update('lname')}
-                        className="signup-input"
+                        className={this.formTypeClass() && this.props.errors.length > 0 && this.state.lname.length === 0 ? "signup-input-red" : "signup-input"}
                     />
                 </div>)
         }
     }
 
     renderErrors() {
-        if(!this.formTypeClass()) {
+        if(!this.formTypeClass() ) {
             return (
             <ul>
-                {this.props.errors.map((error, i) => (
-                    <li key={`error-${i}`}>
-                        {error}
-                    </li>
-                ))}
+                <li>{this.props.errors[0]}</li>
             </ul>
         );} 
         else {
-            if(this.props.errors.length > 0) {
+            if(this.formTypeClass() && this.props.errors.length > 0) {
                 return (
                     <ul className='signup-error-list'>
-                        {this.state.fname.length === 0 ? <li>{this.props.errors[0].fname}</li> : "" }
-                        {this.state.lname.length === 0 ? <li>{this.props.errors[0].lname}</li> : ""}
-                        {this.state.username.length === 0 ? <li>{this.props.errors[0].username}</li> : ""}
-                        {this.state.email.length === 0 ? <li>{this.props.errors[0].email}</li> : ""}
-                        {this.state.password.length < 10 ? <li>{this.props.errors[0].password}</li> : ""}
+                        {this.state.fname.length === 0 ? <li>{this.props.errors[0]}</li> : "" }
+                        {this.state.lname.length === 0 ? <li>{this.props.errors[1]}</li> : ""}
+                        {this.state.username.length === 0 ? <li>{this.props.errors[2]}</li> : ""}
+                        {this.state.email.length === 0 ? <li>{this.props.errors[3]}</li> : ""}
+                        {this.state.password.length < 10 ? <li>{this.props.errors[4]}</li> : ""}
                     </ul>
                 )
             }
@@ -138,7 +134,8 @@ class SessionForm extends React.Component {
                                 <input type="text" placeholder={this.formTypeClass() ? "Username" : ""}
                                     value={this.state.username}
                                     onChange={this.update('username')}
-                                    className={this.formTypeClass() ? "signup-input" : "login-input"}
+                                    className={this.formTypeClass() ? 
+                                        (this.props.errors.length > 0 && this.state.username.length === 0 ? "signup-input-red" : "signup-input") : "login-input"}
                                     required={this.formTypeClass() ? "" : "required"}
                                 /> 
                             </div>
@@ -148,7 +145,8 @@ class SessionForm extends React.Component {
                                     <input type="password" placeholder={this.formTypeClass() ? "Password (min. 10 characters)" : ""}
                                     value={this.state.password}
                                     onChange={this.update('password')}
-                                    className={this.formTypeClass() ? "signup-input" : "login-input"}
+                                    className={this.formTypeClass('password') ?
+                                        (this.props.errors.length > 0 && this.state.password.length === 0 ? "signup-input-red" : "signup-input") : "login-input"}
                                     required={this.formTypeClass() ? "" : "required"}
                                 />
                             </div>

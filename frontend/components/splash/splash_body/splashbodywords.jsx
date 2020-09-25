@@ -9,7 +9,7 @@ class SplashBodyWords extends React.Component {
                 <h1 className='splashbodydescription'>EquityTrade, a pioneer of commission-free investing, gives you
                 more ways to make your money work harder.</h1>
                 
-                <Link to="/signup">
+                <Link to="/login">
                     <button className="splashbody-signup">Sign Up</button>
                 </Link>
             </div>

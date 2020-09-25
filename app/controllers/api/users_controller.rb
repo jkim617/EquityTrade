@@ -7,12 +7,11 @@ class Api::UsersController < ApplicationController
       render "api/users/show"
     else
       render json: [
-        {fname: 'Please enter your first name.',
-        lname: 'Please enter your last name.',
-        username: 'Please enter your username',
-        email: 'Please enter your email.',
-        password: 'Your password must be at least 10 characters.'
-        }
+        'Please enter your first name.',
+        'Please enter your last name.',
+        'Please enter your username',
+        'Please enter your email.',
+        'Your password must be at least 10 characters.'
       ], status: 422
     end
   end

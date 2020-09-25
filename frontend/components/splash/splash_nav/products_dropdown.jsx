@@ -9,13 +9,14 @@ class ProductsDropdown extends React.Component {
     render() {
         return (
             <div className={this.props.arrow === 'up' ? 'products-dropdown-up' : 'products-dropdown-down'}>
-
-                <li className='products-dropdown-hover'>Stocks & Funds</li>
-                <li className='products-dropdown-hover'>Options</li>
-                <li className='products-dropdown-hover'>Gold</li>
-                <li className='products-dropdown-hover'>Cash Management</li>
-                <li className='products-dropdown-|'>|</li>
-                <li className='products-dropdown-crypto'>Crypto</li>
+                <div className='products-dropdown-up-sub'>
+                    <li className='products-dropdown-hover'>Stocks & Funds</li>
+                    <li className='products-dropdown-hover'>Options</li>
+                    <li className='products-dropdown-hover'>Gold</li>
+                    <li className='products-dropdown-hover'>Cash Management</li>
+                    <li className='products-dropdown-|'>|</li>
+                    <li className='products-dropdown-crypto'>Crypto</li>
+                </div>
   
             </div>
         )
