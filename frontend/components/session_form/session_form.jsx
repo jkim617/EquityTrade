@@ -74,10 +74,10 @@ class SessionForm extends React.Component {
     }
 
     renderErrors() {
-        if(!this.formTypeClass() ) {
+        if(!this.formTypeClass() && this.props.errors.length > 0) {
             return (
             <ul>
-                <li>{this.props.errors[0]}</li>
+                    <li className='login-error-sub'><img className='error-logo' src={window.errorlogoURL} /><div className='login-error-text'>{this.props.errors[0]}</div></li>
             </ul>
         );} 
         else {

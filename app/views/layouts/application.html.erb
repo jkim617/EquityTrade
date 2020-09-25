@@ -7,8 +7,12 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag asset_path('robinhood_logo.png') %>
     
+
+     
     <script type="text/javascript">
+    window.errorlogoURL = "<%= image_url('error-icon-exclamation.png') %>"
     
     
     </script>
@@ -19,3 +23,4 @@
     <%= yield %>
   </body>
 </html>
+

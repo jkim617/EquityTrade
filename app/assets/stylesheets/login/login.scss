@@ -135,5 +135,18 @@
     justify-content: space-between;
 }
 
+.login-error-sub {
+    display: flex;
+    align-items: center;
+}
+
+.error-logo {
+    height: 13px;
+    width: 13px;
+}
+
+.login-error-text {
+    margin-left: 10px;
+}
 
 
