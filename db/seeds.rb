@@ -6,7 +6,3 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.destroy_all
-
-demo_user = User.create(fname: 'Guest', lname: 'Guest', email: 'demo_user@appacademy.com',
-            username: 'demo_user', password: 'password123')
