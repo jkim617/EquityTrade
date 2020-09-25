@@ -124,6 +124,21 @@
     letter-spacing: -0.1px;
 }
 
+.signup-error-list {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    list-style-type: disc;
+    list-style-position: inside;
+    color:rgb(255,80,0);
+    font-family: "Capsule Sans Text", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.signup-error-list li {
+    display: list-item;
+    margin-bottom: 16px;
+}
+
 
 
 

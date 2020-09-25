@@ -13,6 +13,7 @@ class SessionForm extends React.Component {
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.formTypeClass = this.formTypeClass.bind(this);
+        this.handleDemo = this.handleDemo.bind(this);
     }
 
     formTypeClass() {
@@ -73,7 +74,8 @@ class SessionForm extends React.Component {
     }
 
     renderErrors() {
-        return (
+        if(!this.formTypeClass()) {
+            return (
             <ul>
                 {this.props.errors.map((error, i) => (
                     <li key={`error-${i}`}>
@@ -81,7 +83,36 @@ class SessionForm extends React.Component {
                     </li>
                 ))}
             </ul>
-        );
+        );} 
+        else {
+            if(this.props.errors.length > 0) {
+                return (
+                    <ul className='signup-error-list'>
+                        {this.state.fname.length === 0 ? <li>{this.props.errors[0].fname}</li> : "" }
+                        {this.state.lname.length === 0 ? <li>{this.props.errors[0].lname}</li> : ""}
+                        {this.state.username.length === 0 ? <li>{this.props.errors[0].username}</li> : ""}
+                        {this.state.email.length === 0 ? <li>{this.props.errors[0].email}</li> : ""}
+                        {this.state.password.length < 10 ? <li>{this.props.errors[0].password}</li> : ""}
+                    </ul>
+                )
+            }
+        }
+    }
+
+    componentDidMount() {
+        return (
+            this.props.removeErrors()
+        )
+    }
+
+   
+    handleDemo(e) {
+        e.preventDefault();
+        this.setState({ username: 'demo_user', password: 'password123' },
+        () => {
+            const user = Object.assign({}, this.state);
+            return this.props.processForm(user);
+        });
     }
 
 
@@ -108,6 +139,7 @@ class SessionForm extends React.Component {
                                     value={this.state.username}
                                     onChange={this.update('username')}
                                     className={this.formTypeClass() ? "signup-input" : "login-input"}
+                                    required={this.formTypeClass() ? "" : "required"}
                                 /> 
                             </div>
 
@@ -117,29 +149,37 @@ class SessionForm extends React.Component {
                                     value={this.state.password}
                                     onChange={this.update('password')}
                                     className={this.formTypeClass() ? "signup-input" : "login-input"}
+                                    required={this.formTypeClass() ? "" : "required"}
                                 />
                             </div>
                             
                             <div className={this.formTypeClass() ? 'session-submit' : "session-submit-login"}>
-                                <input className={this.formTypeClass() ? "signup-submit" : "login-submit"} type="submit" value={this.props.submitButton} />
-                                <div className={this.formTypeClass() ? 'signup-error' : 'login-error'}>{this.renderErrors()}</div>
+                                <div className='login-demo'>
+                                    <input className={this.formTypeClass() ? "signup-submit" : "login-submit"} type="submit" value={this.props.submitButton} />
+                                    {this.formTypeClass() ? "" : <input className='login-submit' onClick={this.handleDemo} value='Demo'/>}
+                                </div>
+                                
+                                {this.formTypeClass() ? "" : 
+                                    <div className='login-error'>
+                                        {this.renderErrors()}
+                                    </div>}
+                                
                                 <div className='login-forgot'>
                                     {this.formTypeClass() ? "" : "Forgot your username or password?"}
                                 </div>
-                            
+                        
                                
 
                                 <div className="signup-submit-links">
                                     <div className='signup-submit-started'>
                                         {this.formTypeClass() ? "Already started?" : ""}
                                     </div>
-
                                     
                                     {this.formTypeClass() ? <Link className="signup-links-application" to='/login'>Log in to complete your application</Link> : ""}
-                                
-                                </div>  
-                           
+                                </div> 
                             </div>
+                            
+                            {this.formTypeClass() ? <div className='signup-error'>{this.renderErrors()}</div> : ""} 
                         
                         </div>
                 </form>

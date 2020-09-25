@@ -108,6 +108,7 @@
     font-family: "Capsule Sans Text", -apple-system, BlinkMacSystemFont, sans-serif;
     width: 35%;
     margin-top: 50px;
+    cursor: pointer;
 }
 
 .login-submit:hover {
@@ -122,5 +123,12 @@
     line-height: 20px;
     letter-spacing: -0.1px;
 }
+
+.login-demo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 
 

@@ -10,15 +10,18 @@
      justify-content: center;
 }
 
+
 .splashbodywords {
      display: flex;
      flex-direction: column;
+     // height: 340px;
+     // width: 450px;
+     width: 26%;
      height: 340px;
-     width: 450px;
      justify-content: space-between;
-     left: 335px;
      align-items: left;
-     margin-left: -40%;
+     margin-right: 30px;
+
 }
 
 .splashbodyheader {
@@ -56,4 +59,15 @@
 
 .splashbody-signup:hover {
     filter: brightness(1.5);
+}
+
+.splashbody {
+     display: flex;
+     flex-direction: row-reverse;
+}
+
+
+.splash-img {
+     height: 100%;
+     width: 100%;
 }
