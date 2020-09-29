@@ -27,3 +27,5 @@ export const fetchCompany = (ticker) => {
         url: `https://sandbox.iexapis.com/stable/stock/${ticker}/company?token=${test_key}`
     })
 }
+
+//use batch endpoints - when you fetch all prices for stocks in your portfolio

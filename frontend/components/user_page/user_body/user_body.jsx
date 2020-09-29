@@ -1,4 +1,5 @@
 import React from 'react';
+import DashboardContainer from '../../dashboard/dashboard_container';
 
 class UserBody extends React.Component {
     constructor(props) {
@@ -7,7 +8,9 @@ class UserBody extends React.Component {
 
     render() {
         return (
-            <div/>
+            <div>
+                <DashboardContainer />
+            </div>
         )
     }
 }

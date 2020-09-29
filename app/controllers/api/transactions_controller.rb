@@ -1,6 +1,7 @@
 class Api::TransactionsController < ApplicationController
     def index
         @transactions = current_user.transactions
+        render :index
     end
 
     def create
@@ -12,7 +13,7 @@ class Api::TransactionsController < ApplicationController
                 current_balance = current_user.funds + @transaction.price
             end
 
-            current_user.update(:funds: current_balance)
+            current_user.update(funds: current_balance)
             render "/api/transactions/show"
         else
             render json: ["Invalid transaction"]
