@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
 
-
-
 import GreetingContainer from '../../greeting/greeting_container';
 import SubNav from './sub_nav';
 

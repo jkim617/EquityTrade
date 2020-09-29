@@ -12,4 +12,5 @@ demo_user = User.create(fname: 'Guest',
                         lname: 'Guest', 
                         username: 'demo_user', 
                         email: 'demo_user@appacademy.com', 
-                        password: 'password123')
+                        password: 'password123',
+                        funds: 10000)

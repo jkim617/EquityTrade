@@ -7,15 +7,23 @@
 #  session_token   :string           not null
 #  password_digest :string           not null
 #  email           :string           not null
+#  fname           :string           not null
+#  lname           :string           not null
+#  funds           :float            default(0.0), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
 class User < ApplicationRecord
     attr_reader :password
 
-    validates :username, :password_digest, :session_token, :email, :fname, :lname, presence: true
+    validates :username, :password_digest, :session_token, :email, :fname, :lname, :funds, presence: true
     validates :username, :email, uniqueness: true
     validates :password, length: { minimum: 10, allow_nil: true}
+
+    has_many :transactions,
+        primary_key: :id,
+        foreign_key: :user_id,
+        class_name: :Transaction
 
     after_initialize :ensure_session_token
 

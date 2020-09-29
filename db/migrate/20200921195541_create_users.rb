@@ -7,6 +7,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :email, null: false
       t.string :fname, null: false
       t.string :lname, null: false
+      t.float :funds, default: 0.00, null: false
 
 
       t.timestamps
