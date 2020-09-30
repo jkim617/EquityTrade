@@ -7,7 +7,6 @@ import { fetchTransactions } from '../../actions/transactions_actions';
 import Dashboard from './dashboard';
 
 const mapStateToProps = (state) => {
-
     return {
         user: state.entities.users[1],
         transactions: Object.values(state.transactions),   

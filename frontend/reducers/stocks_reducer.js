@@ -14,7 +14,6 @@ const stocksReducer = (state= {}, action) => {
             nextState[action.ticker] = action.price;
             return nextState;
         case RECEIVE_INTRADAY_PRICES:
-            debugger
             nextState = action.prices;
             return nextState;
         case RECEIVE_HISTORICAL_PRICES:

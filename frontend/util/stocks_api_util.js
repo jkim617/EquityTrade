@@ -18,7 +18,7 @@ export const fetchHistoricalPrices = (tickers, range) => {
 
     return $.ajax({
         method: 'GET',
-        url: `https://sandbox.iexapis.com/stable/stock/market/batch?symbols=${tickers}&types=chart&range=${range}&token=${test_key}`
+        url: `https://sandbox.iexapis.com/stable/stock/market/batch?symbols=${tickers}&types=chart&range=${range}&includeToday=true&token=${test_key}`
     })
 }
 
