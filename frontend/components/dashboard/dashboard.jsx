@@ -21,10 +21,9 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchTransactions().then(() => {
-            this.getPortfolioPrices();
-        })
-    }
+        this.props.fetchTransactions().then(() => (
+            this.getPortfolioPrices())).then(() => ( this.buildPortfolioValues()))
+        }
 
     
     getPortfolio() {
@@ -32,29 +31,43 @@ class Dashboard extends React.Component {
        
         this.props.transactions.forEach(transaction => {
             if (names[transaction.ticker]) {
-            names[transaction.ticker] += 1}
-            else {names[transaction.ticker] = 1}
+            names[transaction.ticker] += transaction.num_shares}
+            else {names[transaction.ticker] = transaction.num_shares}
         });
+
         return names;
     }
 
     getPortfolioPrices() {
         const names = this.getPortfolio();
         const tickers = Object.keys(names).join(',')
+ 
       
         if (this.state.range === '1D') {
-            this.props.fetchIntradayPrices(tickers)
+            return this.props.fetchIntradayPrices(tickers)
         } else if (this.state.range === '1W') {
-            this.props.fetchHistoricalPrices(tickers, '5d')
+            return this.props.fetchHistoricalPrices(tickers, '5d')
         } else if (this.state.range === '1M') {
-            this.props.fetchHistoricalPrices(tickers, '1mm')
+            return this.props.fetchHistoricalPrices(tickers, '1mm')
         } else if (this.state.range === '3M') {
-            this.props.fetchHistoricalPrices(tickers, '3m')
+            return this.props.fetchHistoricalPrices(tickers, '3m')
         } else if (this.state.range === '1Y') {
-            this.props.fetchHistoricalPrices(tickers, '1y')
-        } else {this.props.fetchHistoricalPrices(tickers, 'max')}
+            return this.props.fetchHistoricalPrices(tickers, '1y')
+        } else {return this.props.fetchHistoricalPrices(tickers, 'max')}
 
-        
+    }
+
+    buildPortfolioValues() {
+        const names = this.getPortfolio();
+        const portfolio_values = {};
+        const prices = this.props.prices;
+        const price_type = () => (this.state.range === '1D' ? 'intraday-prices' : 'chart');
+        debugger
+            Object.keys(names).map(name => {
+                debugger
+                portfolio_values[name] = prices[name][price_type()].map(price => ({time: price.label, close: price.close * names[name]}))
+            })
+
     }
 
     handleClick(e) {
@@ -70,17 +83,21 @@ class Dashboard extends React.Component {
         } else {return 'non-highlight-freq'}
     }
 
-    data() {
-        if(Object.keys(this.props.prices).length === 0 ) {
-            return []} else { return this.props.prices.AAPL['intraday-prices']}}
-    
-    
+    chartData() {
+        
+        if (this.state.range === '1D') {
+            if (Object.keys(this.props.prices).length === 0) {
+                return []
+            } else { return this.props.prices.AAPL['intraday-prices'] }
+        } else { return this.props.prices.AAPL['chart'] }
+    }
+
+   
 
     render() {
-        debugger
-         
+
             const renderLineChart = (
-                <LineChart width={676} height={196} data={this.data()} >
+                <LineChart width={676} height={196} data={this.chartData()} >
                     <Tooltip content={<CustomToolTip/>}/>
                     <Line type="monotone" dataKey="close" stroke="green" dot={false}  />
                     <YAxis hide={true} domain={['dataMin', 'dataMax']} />
