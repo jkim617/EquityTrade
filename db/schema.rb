@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2020_09_27_205250) do
   enable_extension "plpgsql"
 
   create_table "transactions", force: :cascade do |t|
-    t.integer "ticker", null: false
+    t.string "ticker", null: false
     t.integer "user_id", null: false
     t.integer "num_shares", null: false
     t.string "order_type", null: false

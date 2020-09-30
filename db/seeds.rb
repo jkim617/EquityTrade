@@ -14,7 +14,7 @@ demo_user = User.create(fname: 'Guest',
                         username: 'demo_user', 
                         email: 'demo_user@appacademy.com', 
                         password: 'password123',
-                        funds: 10000)
+                        funds: 10000.00)
 
 Transaction.create(ticker: 'AAPL',
                     user_id: 1,

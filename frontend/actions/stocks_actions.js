@@ -11,15 +11,15 @@ const receiveCurrentPrice = (ticker, price) => ({
     price
 });
 
-const receiveIntradayPrices = (ticker, prices) => ({
+const receiveIntradayPrices = (tickers, prices) => ({
     type: RECEIVE_INTRADAY_PRICES,
-    ticker,
+    tickers,
     prices
 })
 
-const receiveHistoricalPrices = (ticker, prices) => ({
+const receiveHistoricalPrices = (tickers, prices) => ({
     type: RECEIVE_HISTORICAL_PRICES,
-    ticker,
+    tickers,
     prices
 })
 
@@ -36,15 +36,15 @@ export const fetchCurrentPrice = ticker => dispatch => (
     )
 ));
 
-export const fetchIntradayPrices = ticker => dispatch => (
-    StocksAPIUtil.fetchIntradayPrices(ticker).then(data => (
-        dispatch(receiveIntradayPrices(ticker, data))
+export const fetchIntradayPrices = tickers => dispatch => (
+    StocksAPIUtil.fetchIntradayPrices(tickers).then(data => (
+        dispatch(receiveIntradayPrices(tickers, data))
     )
 ));
 
-export const fetchHistoricalPrices = (ticker, range) => dispatch => (
-    StocksAPIUtil.fetchHistoricalPrices(ticker, range).then(data => (
-        dispatch(receiveHistoricalPrices(ticker, data))
+export const fetchHistoricalPrices = (tickers, range) => dispatch => (
+    StocksAPIUtil.fetchHistoricalPrices(tickers, range).then(data => (
+        dispatch(receiveHistoricalPrices(tickers, data))
     )
 ));
 

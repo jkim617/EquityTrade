@@ -7,17 +7,18 @@ export const fetchCurrentPrice = (ticker) => {
     })
 }
 
-export const fetchIntradayPrices = (ticker) => {
+export const fetchIntradayPrices = (tickers) => {
     return $.ajax({
         method: 'GET',
-        url: `https://sandbox.iexapis.com/stable/stock/${ticker}/intraday-prices?token=${test_key}`
+        url: `https://sandbox.iexapis.com/stable/stock/market/batch?symbols=${tickers}&types=intraday-prices&token=${test_key}`
     })
 }
 
-export const fetchHistoricalPrices = (ticker, range) => {
+export const fetchHistoricalPrices = (tickers, range) => {
+
     return $.ajax({
         method: 'GET',
-        url: `https://sandbox.iexapis.com/stable/stock/${ticker}/chart/${range}?token=${test_key}`
+        url: `https://sandbox.iexapis.com/stable/stock/market/batch?symbols=${tickers}&types=chart&range=${range}&token=${test_key}`
     })
 }
 
