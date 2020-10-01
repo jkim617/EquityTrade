@@ -9,13 +9,16 @@ import { LineChart,
 import CustomToolTip from './custom_tooltip';
 
 
+
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             range: '1D',
             portfolioValues: [],
-            buyingPowerStatus: false
+            buyingPowerStatus: false,
+            depositFormStatus: false,
+            depositAmount: 0.00
 
         };
         this.handleBuyingClick = this.handleBuyingClick.bind(this);
@@ -23,7 +26,16 @@ class Dashboard extends React.Component {
         this.getPortfolioPrices = this.getPortfolioPrices.bind(this);
         this.buildPortfolioValues = this.buildPortfolioValues.bind(this);
         this.tooltipOffset = this.tooltipOffset.bind(this);
+        this.handleDepositSubmit = this.handleDepositSubmit.bind(this);
+        this.openDepositForm = this.openDepositForm.bind(this);
+        this.closeDepositForm = this.closeDepositForm.bind(this);
  
+    }
+
+    update(field) {
+        return e => this.setState({
+            [field]: e.currentTarget.value
+        });
     }
 
     componentDidMount() {
@@ -33,7 +45,6 @@ class Dashboard extends React.Component {
                 return this.buildPortfolioValues()})
         }
 
-    
     getPortfolio() {
         const names = {};
        
@@ -161,6 +172,23 @@ class Dashboard extends React.Component {
         });
     }
 
+    handleDepositSubmit(e) {
+        e.preventDefault();
+        const addAmount = this.state.depositAmount;
+
+        this.setState({ depositAmount: 0.00 }, () => this.props.addFunds(addAmount, this.props.user.id));
+    }
+
+    openDepositForm(e) {
+        e.preventDefault();
+        this.setState({depositFormStatus: !this.state.depositFormStatus})
+    }
+
+    closeDepositForm(e) {
+        e.preventDefault();
+        this.setState({depositFormStatus: false, buyingPowerStatus: false})
+    }
+
     handleBuyingClick(e) {
         e.preventDefault();
         this.setState({buyingPowerStatus: !this.state.buyingPowerStatus})
@@ -208,6 +236,26 @@ class Dashboard extends React.Component {
 
         return (
             <div className='dashboard'>
+
+                <div className={this.state.depositFormStatus ? 'deposit-form' : 'deposit-form-hidden'}>
+                    <div className='deposit-form-title'>Deposit Funds</div>
+                    <div className='deposit-form-amount'>
+                        <div>Amount</div>
+                        <input type='number' placeholder={'$0.00'}
+                            value={this.state.depositAmount}
+                            onChange={this.update('depositAmount')}
+                            className='deposit-input'
+                            required
+                        />
+                    </div>
+                    <button className='deposit-submit' onClick={this.handleDepositSubmit}>Submit</button>
+                    <button onClick={this.closeDepositForm}>
+                        <img className='deposit-close' src="https://static.thenounproject.com/png/26894-200.png" alt=""/>
+                        </button>
+
+                </div>
+
+
                 <div className='portfolio-balance' />
                 <div className='main-chart'>{renderLineChart}</div>
                 <div className='frequency-bar'>
@@ -218,28 +266,30 @@ class Dashboard extends React.Component {
                     <button className={this.highlightFrequency('1Y')} value='1Y' onClick={this.handleClick}>1Y</button>
                     <button className={this.highlightFrequency('ALL')} value='ALL'>ALL</button>
                 </div>
-                <button onClick={this.handleBuyingClick} className='buying-power-container'>
-                    <div className='buying-power'>Buying Power</div>
-                    <div className={this.state.buyingPowerStatus ? 'funds-hidden' : 'funds'}>${this.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
-                </button>
-                <div className={this.state.buyingPowerStatus ? 'buying-station' : 'buying-station-hidden'}>
-                    <div className='buying-station-1'>
-                        <div className='buying-station-1-1'>
-                            <div className='buying-station-1-1-1'>Brokerage Cash</div>
-                            <div className='buying-station-1-1-2'>${this.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
+                <div className={this.state.buyingPowerStatus ? 'buying-power-base' : 'buying-power-base-hidden'}>
+                    <button onClick={this.handleBuyingClick} className='buying-power-container'>
+                        <div className='buying-power'>Buying Power</div>
+                        <div className={this.state.buyingPowerStatus ? 'funds-hidden' : 'funds'}>${this.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
+                    </button>
+                    <div className={this.state.buyingPowerStatus ? 'buying-station' : 'buying-station-hidden'}>
+                        <div className='buying-station-1'>
+                            <div className='buying-station-1-1'>
+                                <div className='buying-station-1-1-1'>Brokerage Cash</div>
+                                <div className='buying-station-1-1-2'>${this.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
+                            </div>
+                            <div className='buying-station-1-2'>
+                                <div className='buying-station-1-2-1'>Buying Power</div>
+                                <div className='buying-station-1-2-2'>${this.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
+                            </div>
+                            <div className='buying-station-1-3'>
+                                <div className='buying-margin'>Get More Buying Power with Margin</div>
+                                <button onClick={this.openDepositForm} className='deposit-funds-button'>Deposit Funds</button>
+                            </div>
                         </div>
-                        <div className='buying-station-1-2'>
-                            <div className='buying-station-1-2-1'>Buying Power</div>
-                            <div className='buying-station-1-2-2'>${this.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
-                        </div>
-                        <div className='buying-station-1-3'>
-                            <div className='buying-margin'>Get More Buying Power with Margin</div>
-                            <button className='deposit-funds-button'>Deposit Funds</button>
-                        </div>
-                    </div>
-                    <div className='buying-station-2'>
-                        <div className='buying-station-2-1-container'>
-                            <div className='buying-station-2-1'>Buying Power represents the total value of stocks you can purchase.</div>
+                        <div className='buying-station-2'>
+                            <div className='buying-station-2-1-container'>
+                                <div className='buying-station-2-1'>Buying Power represents the total value of stocks you can purchase.</div>
+                            </div>
                         </div>
                     </div>
                 </div>

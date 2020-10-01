@@ -19,11 +19,12 @@ class Splash extends React.Component {
                 <SplashBody />
             </div>
         )
-
+    
         const userPage = () => (
             <div className='user-page'>
                 <UserNav/>
-                <UserBody />
+                <UserBody />      
+                <div className='extra'/>
             </div>
         )
         

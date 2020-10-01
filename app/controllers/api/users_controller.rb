@@ -1,3 +1,4 @@
+
 class Api::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
@@ -15,6 +16,14 @@ class Api::UsersController < ApplicationController
       ], status: 422
     end
   end
+
+  def update
+
+    updated_funds = current_user.funds + params[:amount].to_f
+    current_user.update(funds: updated_funds)
+    render json: ["Success"]
+  end
+
 
   private
 
