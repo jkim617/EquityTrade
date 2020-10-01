@@ -43,18 +43,12 @@ class SignUp extends React.Component {
                             </div>
                             
                             <div className="signup-leftpage-content-2-2">
-                                All securities and investments are offered to self-directed 
-                                customers by EquityTrade Financial, LLC, member<a className='signup-links' href='httsp://www.finra.org'> FINRA </a> 
-                                & <a className='signup-links' href='https:/www.sipc.org'>SIPC</a>.
-                                Additional information about your broker can be found by clicking 
-                                <a className='signup-links' href="https://brokercheck.finra.org/"> here</a>.
                                 EquityTrade Financial, LLC is a wholly owned subsidiary of 
                                 EquityTrade Markets, Inc.
                             </div>
                             
                             <div className="signup-leftpage-content-2-3">
-                                Check the background of EquityTrade Financial LLC and EquityTrade Securities, 
-                                LLC on <a className='signup-links' href='https://brokercheck.finra.org/'> FINRA's BrokerCheck</a>.
+                                Please remember that this is just a web app for trade simulation and NOT to be used for real investments.
                             </div>
 
                             <div className="signup-leftpage-content-2-4"> 
@@ -75,9 +69,8 @@ class SignUp extends React.Component {
                         </div>
 
                         <div className="signup-rightpage-1-text">
-                            We've cut the fat that makes other brokerages costly,
-                            like manual account management and hundreds of storefront
-                            locations, so we can offer zero commission trading.
+                            This is a fun web app to simulate trades with real time stock data. Please be aware that 
+                            we are not responsible for any investment decisions influenced from the use of this app.
                         </div>
 
                         <div className="signup-rightpage-1-header">
@@ -85,12 +78,11 @@ class SignUp extends React.Component {
                         </div>
 
                         <div className="signup-rightpage-1-text">
-                            EquityTrade Financial is a member of SIPC. Securities in your 
-                            account are protected up to $500,000. For details, please see <a className='signup-links' href='https:/www.sipc.org'>www.sipc.org.</a>
+                            Securities in your account are simulated. We offer unliminited funds, starting with $10,000.
                         </div>
 
                         <div className="signup-rightpage-1-header">
-                            Keep tabs on your money
+                            Keep tabs on your fake money
                         </div>
 
                         <div className="signup-rightpage-1-text">

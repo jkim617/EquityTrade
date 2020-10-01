@@ -1,0 +1,16 @@
+.user-body-container {
+    display: flex;
+}
+
+.user-body {
+    display: flex;
+    flex-direction: row;
+    padding-top: 36px;
+    justify-content: center;
+}
+
+.user-body-left {
+    display: flex;
+    flex-direction: column;
+    width: 676px;
+}

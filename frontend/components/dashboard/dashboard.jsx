@@ -14,12 +14,16 @@ class Dashboard extends React.Component {
         super(props);
         this.state = {
             range: '1D',
-            portfolioValues: []
+            portfolioValues: [],
+            buyingPowerStatus: false
 
         };
+        this.handleBuyingClick = this.handleBuyingClick.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.getPortfolioPrices = this.getPortfolioPrices.bind(this);
         this.buildPortfolioValues = this.buildPortfolioValues.bind(this);
+        this.tooltipOffset = this.tooltipOffset.bind(this);
+ 
     }
 
     componentDidMount() {
@@ -67,7 +71,31 @@ class Dashboard extends React.Component {
         const prices = this.props.prices;
         const finalized_portfolio = [];
         const namesArray = Object.keys(names);
-     
+        const monthNames = [
+            "JAN", "FEB", "MAR",
+            "APR", "MAY", "JUN", "JUL",
+            "AUG", "SEP", "OCT",
+            "NOV", "DEC"
+        ];
+        
+        const convertDate = (date, time) => {
+            let newDate = new Date(date);
+            let day = newDate.getDate();
+            let monthIndex = newDate.getMonth();
+            let year = newDate.getFullYear();
+
+            if (this.state.range === '3M') {
+                return monthNames[monthIndex] + ' ' + day 
+            } else if (this.state.range === '1Y') {
+                return monthNames[monthIndex] + ' ' + day + "," + ' ' + year
+            }
+
+            let suffix = parseInt(time) >= 12 ? "PM" : "AM";
+            let hours = ((parseInt(time) + 11) % 12 + 1) + time.slice(2) + ' ' + suffix
+
+            return monthNames[monthIndex] + ' ' + day + ',' + ' ' + hours
+        }
+        
         
         const num = () => {
             if (this.state.range === '1D') {
@@ -76,8 +104,6 @@ class Dashboard extends React.Component {
                 return 2
             } else {return 1}
         }
-
-        debugger
 
         if (this.state.range === '1D') {
             namesArray.map(name => {
@@ -105,6 +131,7 @@ class Dashboard extends React.Component {
                     finalized_portfolio.push({
                         date: portfolio_values[namesArray[0]][i].date,
                         time: portfolio_values[namesArray[0]][i].time,
+                        formattedDate: convertDate(portfolio_values[namesArray[0]][i].date, portfolio_values[namesArray[0]][i].time),
                         close: total
                     })
                 }
@@ -113,11 +140,15 @@ class Dashboard extends React.Component {
                 finalized_portfolio.push({
                     date: portfolio_values[namesArray[0]][i].date,
                     time: portfolio_values[namesArray[0]][i].time,
+                    formattedDate: convertDate(portfolio_values[namesArray[0]][i].date, portfolio_values[namesArray[0]][i].time),
                     close: total
             })
             }
         }
 
+        for (let i = 0; i < finalized_portfolio.length; i++) {
+            finalized_portfolio[i].close += this.props.user.funds
+        }
    
         this.setState({portfolioValues: finalized_portfolio})
     }
@@ -130,7 +161,10 @@ class Dashboard extends React.Component {
         });
     }
 
-
+    handleBuyingClick(e) {
+        e.preventDefault();
+        this.setState({buyingPowerStatus: !this.state.buyingPowerStatus})
+    }
 
     highlightFrequency(freq) {
         if(this.state.range === freq) {
@@ -138,19 +172,44 @@ class Dashboard extends React.Component {
         } else {return 'non-highlight-freq'}
     }
 
+    tooltipOffset() {
+        if (this.state.range === '1W' || this.state.range === '1M') {
+            return -50
+        } else if (this.state.range === '1D') {
+            return -25
+        } else if (this.state.range === '3M') {
+            return -20
+        } else {return -45}
+    }
+
+    cursorHover(e) {
+        if (!e.activePayload) return null;
+    }
+
     render() {
-       
             const renderLineChart = (
-                <LineChart width={676} height={196} data={this.state.portfolioValues} >
-                    <Tooltip content={<CustomToolTip range={this.state.range}/>}/>
-                    <Line type="monotone" dataKey="close" stroke="green" dot={false}  />
+                <LineChart width={676} height={196} data={this.state.portfolioValues}
+                    onMouseMove={this.cursorHover}>
+                    <Tooltip content={<CustomToolTip range={this.state.range}/>}
+                        position={{y: 0}}
+                        offset={this.tooltipOffset()}
+                        isAnimationActive={false}
+                        wrapperStyle={{ top: -19 }}
+                        allowEscapeViewBox={{x:true, y: false}}
+                    />
+                    
+                    <Line type="monotone" dataKey="close" 
+                        strokeWidth={2} stroke={'#00C805'} dot={false}
+                        
+                    />
                     <YAxis hide={true} domain={['dataMin', 'dataMax']} />
                 </LineChart>
             );
 
         return (
-            <div>
-                <div>{renderLineChart}</div>
+            <div className='dashboard'>
+                <div className='portfolio-balance' />
+                <div className='main-chart'>{renderLineChart}</div>
                 <div className='frequency-bar'>
                     <button className={this.highlightFrequency('1D')} value='1D' onClick={this.handleClick}>1D</button>
                     <button className={this.highlightFrequency('1W')} value='1W' onClick={this.handleClick}>1W</button>
@@ -159,14 +218,31 @@ class Dashboard extends React.Component {
                     <button className={this.highlightFrequency('1Y')} value='1Y' onClick={this.handleClick}>1Y</button>
                     <button className={this.highlightFrequency('ALL')} value='ALL'>ALL</button>
                 </div>
-                <div className='buying-power-container'>
+                <button onClick={this.handleBuyingClick} className='buying-power-container'>
                     <div className='buying-power'>Buying Power</div>
-                    <div className='funds'>${this.props.user.funds}</div>
+                    <div className={this.state.buyingPowerStatus ? 'funds-hidden' : 'funds'}>${this.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
+                </button>
+                <div className={this.state.buyingPowerStatus ? 'buying-station' : 'buying-station-hidden'}>
+                    <div className='buying-station-1'>
+                        <div className='buying-station-1-1'>
+                            <div className='buying-station-1-1-1'>Brokerage Cash</div>
+                            <div className='buying-station-1-1-2'>${this.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
+                        </div>
+                        <div className='buying-station-1-2'>
+                            <div className='buying-station-1-2-1'>Buying Power</div>
+                            <div className='buying-station-1-2-2'>${this.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
+                        </div>
+                        <div className='buying-station-1-3'>
+                            <div className='buying-margin'>Get More Buying Power with Margin</div>
+                            <button className='deposit-funds-button'>Deposit Funds</button>
+                        </div>
+                    </div>
+                    <div className='buying-station-2'>
+                        <div className='buying-station-2-1-container'>
+                            <div className='buying-station-2-1'>Buying Power represents the total value of stocks you can purchase.</div>
+                        </div>
+                    </div>
                 </div>
-                
-                
-    
-                
             </div>
 
         )
