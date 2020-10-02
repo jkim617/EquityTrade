@@ -13,7 +13,7 @@ class UserNav extends React.Component {
     render() {
         return (
             <div className='user-nav'>
-                <img className='black-logo' src="https://pbs.twimg.com/profile_images/1267616128022351873/dZJpsWTD_400x400.jpg" alt="" />
+                <Link to='/'><img className='black-logo' src="https://pbs.twimg.com/profile_images/1267616128022351873/dZJpsWTD_400x400.jpg" alt="" /></Link>
                 <SearchBar props={this.props} />
                 <UserNav1 />
             </div>

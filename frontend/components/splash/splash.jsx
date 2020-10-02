@@ -13,6 +13,7 @@ class Splash extends React.Component {
 
     
     render() {
+    
         const entryPage = () => (
             <div className='splash'>
                 <SplashNav />
@@ -23,7 +24,7 @@ class Splash extends React.Component {
         const userPage = () => (
             <div className='user-page'>
                 <UserNavContainer/>
-                <UserBodyContainer />      
+                <UserBodyContainer stockShow={this.props.location.state}/>      
                 <div className='extra'/>
             </div>
         )

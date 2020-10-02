@@ -14,14 +14,6 @@ class Portfolio extends React.Component {
         super(props) 
     }
 
-    
-
-    componentDidMount() {
-
-
-
-    }
-
     getPortfolio() {
         const names = {};
         this.props.props.transactions.forEach(transaction => {
@@ -56,11 +48,11 @@ class Portfolio extends React.Component {
 
         const keyRange = this.props.props.prices[arrayNames[0]]['intraday-prices'] === undefined ? 'chart' : 'intraday-prices'
         
-        
+        if (this.props.props.prices === undefined || arrayNames.length === 0) {return  }
     
         return arrayNames.map((name, i) => {
 
-            
+        
             return (
                 <div className='portfolio-stock-name' key={i}>
                     <div className='portfolio-stock-name-1'>

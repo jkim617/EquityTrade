@@ -49,11 +49,12 @@ export const fetchCurrentPrice = ticker => dispatch => (
     )
 ));
 
-export const fetchIntradayPrices = tickers => dispatch => (
-    StocksAPIUtil.fetchIntradayPrices(tickers).then(data => (
+export const fetchIntradayPrices = tickers => dispatch => {
+    debugger
+    return StocksAPIUtil.fetchIntradayPrices(tickers).then(data => (
         dispatch(receiveIntradayPrices(tickers, data))
     )
-));
+)};
 
 export const fetchHistoricalPrices = (tickers, range) => dispatch => (
     StocksAPIUtil.fetchHistoricalPrices(tickers, range).then(data => (
