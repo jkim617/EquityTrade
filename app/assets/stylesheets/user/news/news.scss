@@ -42,6 +42,25 @@
     }
 }
 
+.news-button-red {
+    color: rgb(255,80, 0);
+    align-items: center;
+    background-color: rgba(255, 80, 0, 0.1);
+    font-size: 13px;
+    font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: -0.1px;
+    border-radius: 17px;
+    padding: 0px 12px 1px;
+    height: 28px;
+    margin: 12px;
+    &:hover {
+        color: white;
+        background-color:  rgb(255,80, 0)
+    }
+}
+
 .user-page-bottom {
     font-size: 13px;
     font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
@@ -60,8 +79,19 @@
     line-height: 65px;
     letter-spacing: -0.1px;
     color: rgb(0,200, 5);
-
 }
+
+.github-links-red {
+    margin-left: 3px;
+    font-size: 13px;
+    font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    line-height: 65px;
+    letter-spacing: -0.1px;
+    color: rgb(255,80, 0);
+}
+
+
 
 .extra {
     height: 300px;

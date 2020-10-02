@@ -1,16 +1,18 @@
 import { connect } from 'react-redux';
 
-import { fetchIntradayPrices,
-        fetchHistoricalPrices} from '../../actions/stocks_actions';
-import { fetchTransactions } from '../../actions/transactions_actions';
-import { addFunds } from '../../actions/users_actions';
+import {
+    fetchIntradayPrices,
+    fetchHistoricalPrices
+} from '../../../actions/stocks_actions';
+import { fetchTransactions } from '../../../actions/transactions_actions';
+import { addFunds } from '../../../actions/users_actions';
 
-import Dashboard from './dashboard';
+import UserBody from './user_body';
 
 const mapStateToProps = (state) => {
     return {
         user: state.entities.users[1],
-        transactions: Object.values(state.transactions),   
+        transactions: Object.values(state.transactions),
         prices: state.prices
     };
 };
@@ -25,4 +27,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Dashboard);
+)(UserBody);

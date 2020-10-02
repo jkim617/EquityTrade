@@ -4,7 +4,7 @@ import { Link, Route } from 'react-router-dom';
 import SplashNav from './splash_nav/splash_nav';
 import SplashBody from './splash_body/splash_body';
 import UserNav from '../user_page/user_nav/nav';
-import UserBody from '../user_page/user_body/user_body';
+import UserBodyContainer from '../user_page/user_body/userbody_container';
 
 class Splash extends React.Component {
     constructor(props) {
@@ -23,7 +23,7 @@ class Splash extends React.Component {
         const userPage = () => (
             <div className='user-page'>
                 <UserNav/>
-                <UserBody />      
+                <UserBodyContainer />      
                 <div className='extra'/>
             </div>
         )
