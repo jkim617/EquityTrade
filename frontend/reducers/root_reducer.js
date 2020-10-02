@@ -15,7 +15,6 @@ const rootReducer = combineReducers({
     errors,
     prices,
     transactions
-
 });
 
 export default rootReducer;

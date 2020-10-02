@@ -117,7 +117,7 @@ class Dashboard extends React.Component {
     showBalance(e)  {
         const return_dollar = e.value-this.props.state.portfolioValues[0].close;
         const return_perc = return_dollar/this.props.state.portfolioValues[0].close;
-        debugger
+     
         this.setState({value: e.value,
                         return_dollar: return_dollar,
                         return_perc: return_perc,
@@ -162,7 +162,7 @@ class Dashboard extends React.Component {
             const full_return_perc = (((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))
             / this.props.state.portfolioValues[0].close)}
        
-        debugger
+      
         return (
           
             <div>

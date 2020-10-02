@@ -4,6 +4,12 @@ export const RECEIVE_CURRENT_PRICE = 'RECEIVE_CURRENT_PRICE';
 export const RECEIVE_INTRADAY_PRICES = 'RECEIVE_INTRADAY_PRICES';
 export const RECEIVE_HISTORICAL_PRICES = 'RECEIVE_HISTORICAL_PRICES';
 export const RECEIVE_COMPANY = 'RECEIVE_COMPANY';
+export const RECEIVE_SEARCH =  'RECEIVE_SEARCH';
+
+const receiveSearchResults = (data) => ({
+    type: RECEIVE_SEARCH,
+    searchResults: data
+})
 
 const receiveCurrentPrice = (ticker, price) => ({
     type: RECEIVE_CURRENT_PRICE,
@@ -28,6 +34,13 @@ const receiveCompany = (ticker, company) => ({
     ticker,
     company
 });
+
+export const fetchSearchResults = fragment => dispatch => {
+  
+    return StocksAPIUtil.fetchSearchResults(fragment).then(data => (
+        dispatch(receiveSearchResults(data))
+    ))
+    }
 
 
 export const fetchCurrentPrice = ticker => dispatch => (

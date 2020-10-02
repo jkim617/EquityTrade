@@ -2,13 +2,15 @@ import {
     RECEIVE_CURRENT_PRICE,
     RECEIVE_INTRADAY_PRICES,
     RECEIVE_HISTORICAL_PRICES,
-    RECEIVE_COMPANY
+    RECEIVE_COMPANY,
+    RECEIVE_SEARCH
 } from '../actions/stocks_actions';
 
 
 const stocksReducer = (state= {}, action) => {
     Object.freeze(state);
     let nextState = Object.assign({}, state);
+   
     switch(action.type) {
         case RECEIVE_CURRENT_PRICE:
             nextState[action.ticker] = action.price;
@@ -22,6 +24,9 @@ const stocksReducer = (state= {}, action) => {
         case RECEIVE_COMPANY:
             nextState[action.ticker] = action.company;
             return nextState;
+        case RECEIVE_SEARCH:
+            nextState['searchResults'] = action.searchResults;
+            return nextState
         default:
             return state;
     }

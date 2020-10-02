@@ -39,9 +39,13 @@
 .portfolio-stock-name {
     display: flex;
     justify-content: space-between;
-    padding: 10px 24px 10px;
+    padding: 2px 24px 2px;
     height: 60px;
     width: 220px;
+    align-items: center;
+    &:hover {
+        background-color: rgb(245,248,250)
+    }
 }
 
 .portfolio-stock-name > div{

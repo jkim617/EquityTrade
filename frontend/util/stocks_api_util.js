@@ -29,4 +29,11 @@ export const fetchCompany = (ticker) => {
     })
 }
 
+export const fetchSearchResults = (fragment) => {
+    return $.ajax({
+        method: 'GET',
+        url: `https://cloud.iexapis.com/stable/search/${fragment}?token=${test_key}`
+    })
+}
+
 //use batch endpoints - when you fetch all prices for stocks in your portfolio

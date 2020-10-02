@@ -3,7 +3,7 @@ import { Link, Route } from 'react-router-dom';
 
 import SplashNav from './splash_nav/splash_nav';
 import SplashBody from './splash_body/splash_body';
-import UserNav from '../user_page/user_nav/nav';
+import UserNavContainer from '../user_page/user_nav/nav_container';
 import UserBodyContainer from '../user_page/user_body/userbody_container';
 
 class Splash extends React.Component {
@@ -22,7 +22,7 @@ class Splash extends React.Component {
     
         const userPage = () => (
             <div className='user-page'>
-                <UserNav/>
+                <UserNavContainer/>
                 <UserBodyContainer />      
                 <div className='extra'/>
             </div>
