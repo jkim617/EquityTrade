@@ -37,14 +37,14 @@ class SearchBar extends React.Component {
 
     renderResults() {
 
-     
+        debugger
         if(this.props.props.searchResults === undefined || this.props.props.searchResults.length === 0)
                 {return <div className='search-result-error'>We were unable to find any results for your search.</div>}
 
         return this.props.props.searchResults.map((result, i) => {
 
             return (
-                <Link to={`api/stocks/${i}`} className='result-stock' key={i}>
+                <Link to={`api/stocks/${result.symbol}`} className='result-stock' key={i}>
                     <div className='result-stock-symbol'>{result.symbol.slice(0,50)}</div>
                     <div className='result-stock-name'>{result.securityName.slice(0,50)}</div>
                 </Link>
@@ -53,7 +53,7 @@ class SearchBar extends React.Component {
     }
 
     render() {
-       
+       debugger
         return(
             <div className='sub-nav-2'>
                 {this.searchField()}

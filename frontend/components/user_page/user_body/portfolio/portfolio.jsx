@@ -56,7 +56,7 @@ class Portfolio extends React.Component {
 
         const keyRange = this.props.props.prices[arrayNames[0]]['intraday-prices'] === undefined ? 'chart' : 'intraday-prices'
         
-        debugger
+        
     
         return arrayNames.map((name, i) => {
 
