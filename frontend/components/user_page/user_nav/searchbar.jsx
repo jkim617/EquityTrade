@@ -44,10 +44,10 @@ class SearchBar extends React.Component {
         return this.props.props.searchResults.map((result, i) => {
 
             return (
-                <div className='result-stock' key={i}>
+                <Link to={`api/stocks/${i}`} className='result-stock' key={i}>
                     <div className='result-stock-symbol'>{result.symbol.slice(0,50)}</div>
                     <div className='result-stock-name'>{result.securityName.slice(0,50)}</div>
-                </div>
+                </Link>
             )
         })
     }

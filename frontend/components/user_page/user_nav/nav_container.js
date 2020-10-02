@@ -5,7 +5,7 @@ import { fetchSearchResults } from '../../../actions/stocks_actions';
 import UserNav from './nav';
 
 const mapStateToProps = (state) => {
-   debugger
+
     return {
         
         searchResults: state.prices.searchResults
