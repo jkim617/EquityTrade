@@ -33,3 +33,33 @@ Transaction.create(ticker: 'UBER',
                     num_shares: 3,
                     order_type: "buy",
                     price: 34.75)
+
+Transaction.create(ticker: 'AMD',
+                    user_id: 1,
+                    num_shares: 24,
+                    order_type: "buy",
+                    price: 34.75)
+
+Transaction.create(ticker: 'BABA',
+                    user_id: 1,
+                    num_shares: 11,
+                    order_type: "buy",
+                    price: 34.75)
+
+Transaction.create(ticker: 'AMZN',
+                    user_id: 1,
+                    num_shares: 6,
+                    order_type: "buy",
+                    price: 34.75)
+
+Transaction.create(ticker: 'MSFT',
+                    user_id: 1,
+                    num_shares: 8,
+                    order_type: "buy",
+                    price: 34.75)
+
+Transaction.create(ticker: 'FB',
+                    user_id: 1,
+                    num_shares: 12,
+                    order_type: "buy",
+                    price: 34.75)
