@@ -56,7 +56,7 @@ class Portfolio extends React.Component {
 
         const keyRange = this.props.props.prices[arrayNames[0]]['intraday-prices'] === undefined ? 'chart' : 'intraday-prices'
         
-        
+        debugger
     
         return arrayNames.map((name, i) => {
 
@@ -71,7 +71,7 @@ class Portfolio extends React.Component {
                         {this.renderLineChart(this.props.props.prices[name][keyRange])}
                     </div>
                     <div className='portfolio-stock-name-3'>
-                        <div>${this.props.props.prices[name][keyRange][0].close >= 0 ? this.props.props.prices[name][keyRange].slice(-1)[0].close.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : ''}</div>
+                        <div>${this.props.props.prices[name][keyRange].slice(-1)[0].close.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
                         
                         <div className={(((this.props.props.prices[name][keyRange].slice(-1)[0].close)
                             - (this.props.props.prices[name][keyRange][0].close))
