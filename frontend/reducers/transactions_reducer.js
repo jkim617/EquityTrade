@@ -8,7 +8,9 @@ const transactionsReducer = (state = {}, action) => {
   
 
     switch(action.type) {
+
         case RECEIVE_TRANSACTIONS:
+       
             return Object.assign(nextState, action.transactions);
         default:
             return state

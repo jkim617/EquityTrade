@@ -1,4 +1,4 @@
-const test_key = 'pk_cc32cca335af4b7abb100aab39c62c7e'
+const test_key = 'pk_da6f958643674a6ea705e5cbc42a84d4'
 
 export const fetchCurrentPrice = (ticker) => {
     return $.ajax({

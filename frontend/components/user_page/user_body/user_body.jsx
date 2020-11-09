@@ -9,7 +9,8 @@ class UserBody extends React.Component {
 
         this.state = {
             range: '1D',
-            portfolioValues: []};
+            portfolioValues: [],
+            noFunds: false};
 
         this.getPortfolioPrices = this.getPortfolioPrices.bind(this);
         this.buildPortfolioValues = this.buildPortfolioValues.bind(this);
@@ -26,39 +27,37 @@ class UserBody extends React.Component {
     }
 
     componentDidMount() {
-    
-        if(this.props.stockShow === undefined) {
-      
+  
+        if(this.props.stockShow === undefined && this.props.user.funds != 0) {
+          
             this.props.fetchTransactions().then(() => (
                 this.getPortfolioPrices())).then(() => {
 
                     return this.buildPortfolioValues()
                 })
         } 
-        // else {
-    
-        //     return this.getStockPrices()
-        // }
-        
+        else {
+            this.setState({ portfolioValues: [] })
+        }
         
     }
 
     componentDidUpdate(prevProps) {
-    
-        if (this.props.stockShow === undefined) {
+      
+        if (this.props.stockShow === undefined ) {
             if((this.props.user.funds !== prevProps.user.funds)) {
-        
+            
                 this.props.fetchTransactions().then(() => (
                     this.getPortfolioPrices())).then(() => {
 
                         return this.buildPortfolioValues()
                     })
             }
+            else if (this.state.noFunds === false) {
+                this.setState({ noFunds: true })
+            }
         } 
-        // else {
-           
-        //     return this.getStockPrices()
-        // } 
+        
 
 
     }
@@ -135,44 +134,6 @@ class UserBody extends React.Component {
         return monthNames[monthIndex] + ' ' + day + ',' + ' ' + hours
     }
 
-    // buildStockValues() {
-    //     const portfolio_values = {};
-    //     const prices = this.props.prices;
-    //     const finalized_portfolio = [];
-    //     const ticker = this.props.stockShow.ticker;
-
-      
-
-    //     const num = () => {
-    //         if (this.state.range === '1D') {
-    //             return 5
-    //         } else if (this.state.range === '1M') {
-    //             return 2
-    //         } else { return 1 }
-    //     }
-    //     debugger
-
-    //     if (this.state.range === '1D') {
-    //         portfolio_values[ticker] = prices[ticker]['intraday-prices']
-    //     } else {
-    //         portfolio_values[ticker] = prices[ticker]['chart']
-    //     }
-    //     debugger
-
-    //     for (let i = 0; i < portfolio_values[ticker]; i += num()) {
-    //         if (this.state.range === '1D') {
-    //             finalized_portfolio.push({
-    //                 time: portfolio_values[ticker][i].label
-    //             })
-    //         }
-    //     }
-
-
-
-
-        
-
-    // }
     
     buildPortfolioValues() {
      
@@ -236,14 +197,13 @@ class UserBody extends React.Component {
             finalized_portfolio[i].close += this.props.user.funds
         }
        
-        this.setState({ portfolioValues: finalized_portfolio })
+        this.setState({ portfolioValues: finalized_portfolio,
+                        noFunds: true })
     }
 
     render() {
         if (this.props.stockShow === undefined) {
-        
-            if (Object.keys(this.props.prices).length > 0) {
-            
+    
                 return (
                     <div className='user-body'>
                         <div className='user-body-container'>
@@ -259,7 +219,7 @@ class UserBody extends React.Component {
                         </div>
                     </div>
                 )
-            } else {return null;} }
+         }
         else {
          
             return (

@@ -161,7 +161,7 @@ class Dashboard extends React.Component {
             const full_return_dollar = ((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close));
             const full_return_perc = (((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))
             / this.props.state.portfolioValues[0].close)}
-       
+        
       
         return (
           
@@ -190,10 +190,11 @@ class Dashboard extends React.Component {
                 <div className='portfolio-tooltip'>
                     <div className='portfolio-balance'>
                             ${this.props.state.portfolioValues.length > 0  ? 
+                         
                                 (this.state.status === false? 
                                     this.state.value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : this.props.state.portfolioValues[0].close.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
                                             )
-                            : ''}
+                                : this.props.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
                     </div>
                     <div className='portfolio-return'>
                             {this.props.state.portfolioValues.length > 0 ?

@@ -6,7 +6,7 @@ import errors from './errors_reducer';
 import prices from './stocks_reducer';
 import transactions from './transactions_reducer';
 
-
+import {LOGOUT_CURRENT_USER} from '../actions/session_actions';
 
 
 const rootReducer = combineReducers({
@@ -17,4 +17,4 @@ const rootReducer = combineReducers({
     transactions
 });
 
-export default rootReducer;
+export default (state, action) => rootReducer(action.type === 'LOGOUT_CURRENT_USER' ? undefined: state, action);

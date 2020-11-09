@@ -50,7 +50,7 @@ export const fetchCurrentPrice = ticker => dispatch => (
 ));
 
 export const fetchIntradayPrices = tickers => dispatch => {
-    debugger
+
     return StocksAPIUtil.fetchIntradayPrices(tickers).then(data => (
         dispatch(receiveIntradayPrices(tickers, data))
     )

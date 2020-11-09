@@ -10,8 +10,10 @@ import { addFunds } from '../../../actions/users_actions';
 import UserBody from './user_body';
 
 const mapStateToProps = (state) => {
+    let currentUser = state.session.id
+ 
     return {
-        user: state.entities.users[1],
+        user: state.entities.users[currentUser],
         transactions: Object.values(state.transactions),
         prices: state.prices
     };
