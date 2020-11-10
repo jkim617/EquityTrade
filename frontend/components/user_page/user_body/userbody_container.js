@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 
 import {
     fetchIntradayPrices,
-    fetchHistoricalPrices
+    fetchHistoricalPrices,
+    fetchCompany
 } from '../../../actions/stocks_actions';
 import { fetchTransactions } from '../../../actions/transactions_actions';
 import { addFunds } from '../../../actions/users_actions';
@@ -24,7 +25,9 @@ const mapDispatchToProps = dispatch => ({
     fetchIntradayPrices: tickers => dispatch(fetchIntradayPrices(tickers)),
     fetchHistoricalPrices: (tickers, range) => dispatch(fetchHistoricalPrices(tickers, range)),
     fetchTransactions: () => dispatch(fetchTransactions()),
+    fetchCompany: ticker => dispatch(fetchCompany(ticker)),
     addFunds: (amount, id) => dispatch(addFunds(amount, id))
+    
 });
 
 export default connect(

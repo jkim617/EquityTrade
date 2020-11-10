@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import {
     LineChart,
@@ -57,6 +58,7 @@ class Portfolio extends React.Component {
 
             
                 return (
+                    <Link to={`/stocks/${name}`}>
                     <div className='portfolio-stock-name' key={i}>
                         <div className='portfolio-stock-name-1'>
                             <div className='stock-name'>{name}</div>
@@ -80,11 +82,9 @@ class Portfolio extends React.Component {
                                     / (this.props.props.prices[name][keyRange][0].close))*100).toFixed(2)+'%'
                                 }
                             </div>
-                        </div>
-
-                        
-                        
+                        </div>     
                     </div>
+                    </Link>
                 )
             }) 
         }

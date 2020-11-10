@@ -2,6 +2,7 @@ import React from 'react';
 import Dashboard from '../../dashboard/dashboard';
 import Portfolio from './portfolio/portfolio';
 import News from './news/news';
+import About from './stock_about/about';
 
 class UserBody extends React.Component {
     constructor(props) {
@@ -268,8 +269,11 @@ class UserBody extends React.Component {
                     <div className='user-body-container'>
                         <div className='user-body-left'>
                             <Dashboard props={this.props} state={this.state} changeRange={this.changeRange} />
+                            <div className='about'>
+                                <About props={this.props}/>
+                            </div>
                             <div className='news'>
-                                <News state={this.state} />
+                                <News state={this.state}/>
                             </div>
                         </div>
                         <div className='user-body-right'>

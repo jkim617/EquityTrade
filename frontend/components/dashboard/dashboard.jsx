@@ -191,7 +191,7 @@ class Dashboard extends React.Component {
     }
 
     renderPortfolioBalance() {
-        debugger
+        
         if (this.props.state.portfolioValues.length > 0) {
             if (isNaN(this.props.state.portfolioValues[0].close)) {
                 return(<div>Not Available in US</div>)
@@ -238,13 +238,15 @@ class Dashboard extends React.Component {
         
             debugger
         return (
-          
+            
             <div>
             {this.renderDepositForm()}
             <div className='dashboard'>
         
                 <div className='portfolio-tooltip'>
+                        <div className='portfolio-tooltip-stockname'>{this.props.props.pathName.split("/")[2]}</div>
                     <div className='portfolio-balance'>
+  
                         {this.renderPortfolioBalance()}
                             {/* ${this.props.state.portfolioValues.length > 0  ? 
                                 // (this.props.state.portfolioValues[0].close === NaN) ? 'This stock is not available on this platform':

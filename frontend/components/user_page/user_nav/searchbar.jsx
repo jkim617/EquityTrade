@@ -12,7 +12,7 @@ class SearchBar extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        debugger
+      
         if (prevProps.props.pathName !== this.props.props.pathName) {
             this.setState({fragment: ''})
         }
