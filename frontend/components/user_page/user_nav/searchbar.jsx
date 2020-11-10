@@ -36,19 +36,19 @@ class SearchBar extends React.Component {
         if(this.props.props.searchResults === undefined || this.props.props.searchResults.length === 0)
                 {return <div className='search-result-error'>We were unable to find any results for your search.</div>}
 
-        // return this.props.props.searchResults.map((result, i) => {
+        return this.props.props.searchResults.map((result, i) => {
 
-        //     return (
-        //         <Link to={{
-        //             pathname: `/shops/${result.symbol}`,
-        //             state: {ticker: result.symbol, 
-        //                     name: result.securityName}} }
-        //             className='result-stock' key={i}>
-        //             <div className='result-stock-symbol'>{result.symbol.slice(0,50)}</div>
-        //             <div className='result-stock-name'>{result.securityName.slice(0,50)}</div>
-        //         </Link>
-        //     )
-        // })
+            return (
+                <Link to={{
+                    pathname: `/stocks/${result.symbol}`,
+                    state: {ticker: result.symbol, 
+                            name: result.securityName}} }
+                    className='result-stock' key={i}>
+                    <div className='result-stock-symbol'>{result.symbol.slice(0,50)}</div>
+                    <div className='result-stock-name'>{result.securityName.slice(0,50)}</div>
+                </Link>
+            )
+        })
     }
 
     render() {

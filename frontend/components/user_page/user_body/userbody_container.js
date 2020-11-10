@@ -9,10 +9,11 @@ import { addFunds } from '../../../actions/users_actions';
 
 import UserBody from './user_body';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     let currentUser = state.session.id
- 
+
     return {
+        pathName: ownProps.pathName,
         user: state.entities.users[currentUser],
         transactions: Object.values(state.transactions),
         prices: state.prices

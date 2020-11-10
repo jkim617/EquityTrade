@@ -10,43 +10,55 @@ class UserBody extends React.Component {
         this.state = {
             range: '1D',
             portfolioValues: [],
-            noFunds: false};
+            noFunds: false,
+            redirect: false,
+            stockShow: false};
 
         this.getPortfolioPrices = this.getPortfolioPrices.bind(this);
         this.buildPortfolioValues = this.buildPortfolioValues.bind(this);
         this.getStockPrices = this.getStockPrices.bind(this);
         this.changeRange = this.changeRange.bind(this);
+     
     }
 
     changeRange(newRange) {
-    
-        this.setState({ range: newRange }, () => {
+        
+        this.setState({ range: newRange})
+        // this.setState({ range: newRange }, () => {
 
-            this.getPortfolioPrices().then(() => this.buildPortfolioValues())
-        });
+        //     this.getPortfolioPrices().then(() => this.buildPortfolioValues())
+        // });
     }
 
     componentDidMount() {
-  
-        if(this.props.stockShow === undefined && this.props.user.funds != 0) {
-          
-            this.props.fetchTransactions().then(() => (
-                this.getPortfolioPrices())).then(() => {
-
-                    return this.buildPortfolioValues()
-                })
+        
+        if(this.props.pathName === '/') {
+            
+            if(this.props.user.funds != 0) {
+                this.props.fetchTransactions().then(() => (
+                    this.getPortfolioPrices())).then(() => {
+                        return this.buildPortfolioValues()
+                    })
+            }
+            else {
+                this.setState({ portfolioValues: [] })
+            }
         } 
         else {
-            this.setState({ portfolioValues: [] })
+            this.getStockPrices().then(() => {
+                return this.buildPortfolioValues()
+            })
         }
         
     }
 
-    componentDidUpdate(prevProps) {
-      
-        if (this.props.stockShow === undefined ) {
-            if((this.props.user.funds !== prevProps.user.funds)) {
-            
+    componentDidUpdate(prevProps, prevState) {
+        
+        const ticker = this.props.pathName.split('/')[2]
+        if (this.props.pathName === '/' ) {
+           
+            if ((this.props.user.funds !== prevProps.user.funds) || (this.state.range !== prevState.range)) {
+                
                 this.props.fetchTransactions().then(() => (
                     this.getPortfolioPrices())).then(() => {
 
@@ -56,7 +68,12 @@ class UserBody extends React.Component {
             else if (this.state.noFunds === false) {
                 this.setState({ noFunds: true })
             }
-        } 
+        } else if (this.state.range !== prevState.range || this.props.pathName !== prevProps.pathName) {
+         
+            this.getStockPrices().then(() => {
+                return this.buildPortfolioValues()
+            })
+        }
         
 
 
@@ -76,25 +93,26 @@ class UserBody extends React.Component {
     }
 
     getStockPrices() {
-        const ticker = this.props.stockShow.ticker
-      
+        const ticker = this.props.pathName.split('/')[2]
+    
         if (this.state.range === '1D') {
-            return this.props.fetchStockIntradayPrices(ticker)
+            return this.props.fetchIntradayPrices(ticker)
         } else if (this.state.range === '1W') {
-            return this.props.fetchStockHistoricalPrices(ticker, '5dm')
+            return this.props.fetchHistoricalPrices(ticker, '5dm')
         } else if (this.state.range === '1M') {
-            return this.props.fetchStockHistoricalPrices(ticker, '1mm')
+            return this.props.fetchHistoricalPrices(ticker, '1mm')
         } else if (this.state.range === '3M') {
-            return this.props.fetchStockHistoricalPrices(ticker, '3m')
+            return this.props.fetchHistoricalPrices(ticker, '3m')
         } else if (this.state.range === '1Y') {
-            return this.props.fetchStockHistoricalPrices(ticker, '1y')
-        } else { return this.props.fetchStockHistoricalPrices(ticker, 'max') }
+            return this.props.fetchHistoricalPrices(ticker, '1y')
+        } else { return this.props.fetchHistoricalPrices(ticker, 'max') }
     }
 
     getPortfolioPrices() {
         const names = this.getPortfolio();
         const tickers = Object.keys(names).join(',')
-
+        
+      
         if (this.state.range === '1D') {
             return this.props.fetchIntradayPrices(tickers)
         } else if (this.state.range === '1W') {
@@ -137,11 +155,20 @@ class UserBody extends React.Component {
     
     buildPortfolioValues() {
      
-        const names = this.getPortfolio();
+        const ticker = this.props.pathName.split('/')[2];
         const portfolio_values = {};
         const prices = this.props.prices;
         const finalized_portfolio = [];
-        const namesArray = Object.keys(names);
+        let namesArray;
+        let names;
+        if (this.props.pathName === '/') {
+            names = this.getPortfolio()
+            namesArray = Object.keys(names)
+        } else {
+            namesArray = [ticker]}
+        ;
+
+        
         
         const num = () => {
             if (this.state.range === '1D') {
@@ -150,16 +177,27 @@ class UserBody extends React.Component {
                 return 2
             } else { return 1 }
         }
+   
 
         if (this.state.range === '1D') {
-            namesArray.map(name => {
-                portfolio_values[name] = prices[name]['intraday-prices'].map(price => ({ time: price.label, close: price.close * names[name] }))
+            if (ticker === undefined) {
+                namesArray.map(name => {
+                    portfolio_values[name] = prices[name]['intraday-prices'].map(price => ({ time: price.label, close: price.close * names[name] }))
             })
+            } else {
+                namesArray.map(name => {
+                    portfolio_values[name] = prices[name]['intraday-prices'].map(price => ({ time: price.label, close: price.close }))
+            })}
         } else {
-            namesArray.map(name => {
-                portfolio_values[name] = prices[name]['chart'].map(price => ({ date: price.date, time: price.label, close: price.close * names[name] }))
+            if (ticker === undefined) {
+                namesArray.map(name => {
+                    portfolio_values[name] = prices[name]['chart'].map(price => ({ date: price.date, time: price.label, close: price.close * names[name] }))
+                })
+            } else {
+                namesArray.map(name => {
+                    portfolio_values[name] = prices[name]['chart'].map(price => ({ time: price.label, close: price.close }))
             })
-        }
+        }}
 
         for (let i = 0; i < portfolio_values[namesArray[0]].length; i += num()) {
             let total = 0;
@@ -192,18 +230,21 @@ class UserBody extends React.Component {
                 })
             }
         }
-     
-        for (let i = 0; i < finalized_portfolio.length; i++) {
-            finalized_portfolio[i].close += this.props.user.funds
-        }
+        if (ticker === undefined) {
+            for (let i = 0; i < finalized_portfolio.length; i++) {
+                finalized_portfolio[i].close += this.props.user.funds
+        }}
        
         this.setState({ portfolioValues: finalized_portfolio,
-                        noFunds: true })
+                        noFunds: true,
+                        redirect: true })
     }
 
     render() {
-        if (this.props.stockShow === undefined) {
-    
+     
+
+        if (this.props.pathName === '/' && this.state.redirect === true) {
+            
                 return (
                     <div className='user-body'>
                         <div className='user-body-container'>
@@ -220,12 +261,25 @@ class UserBody extends React.Component {
                     </div>
                 )
          }
-        else {
-         
+        else if(this.props.pathName != '/') {
+        
             return (
-                <div/>
+                <div className='user-body'>
+                    <div className='user-body-container'>
+                        <div className='user-body-left'>
+                            <Dashboard props={this.props} state={this.state} changeRange={this.changeRange} />
+                            <div className='news'>
+                                <News state={this.state} />
+                            </div>
+                        </div>
+                        <div className='user-body-right'>
+                           
+                        </div>
+                    </div>
+                </div>
             )
         }
+        return null;
     }
 }
 

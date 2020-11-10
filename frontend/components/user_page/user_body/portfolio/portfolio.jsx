@@ -39,9 +39,11 @@ class Portfolio extends React.Component {
             </div>
                 )      
     }
+
+    
     
     renderPortfolioList() {
-        debugger
+
         const names = this.getPortfolio();
 
         const arrayNames = Object.keys(names);
@@ -88,6 +90,10 @@ class Portfolio extends React.Component {
         }
     }
 
+    renderWatchList() {
+        
+    }
+
 
     render() {
         return (
@@ -95,6 +101,11 @@ class Portfolio extends React.Component {
                 <div className='portfolio-dashboard-stocks'>
                     <div className='portfolio-dashboard-title'>Stocks</div>
                     {this.renderPortfolioList()}
+                </div>
+
+                <div className='portfolio-dashboard-stocks'>
+                    <div className='portfolio-dashboard-title'>Watch List</div>
+                    
                 </div>
 
             </div>

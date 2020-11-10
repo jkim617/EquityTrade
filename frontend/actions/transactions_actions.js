@@ -8,8 +8,10 @@ const receiveTransactions = (transactions) => ({
 })
 
 
-export const fetchTransactions = () => dispatch => (
-    TransactionsAPIUtil.fetchTransactions().then(transactions => (
+export const fetchTransactions = () => dispatch => {
+
+
+    return(TransactionsAPIUtil.fetchTransactions().then(transactions => (
         dispatch(receiveTransactions(transactions))
-    ))
-)
+    )))
+    }

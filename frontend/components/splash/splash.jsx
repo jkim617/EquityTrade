@@ -10,10 +10,10 @@ class Splash extends React.Component {
     constructor(props) {
         super(props)
     };
-
     
+  
     render() {
-    
+  
         const entryPage = () => (
             <div className='splash'>
                 <SplashNav />
@@ -24,7 +24,7 @@ class Splash extends React.Component {
         const userPage = () => (
             <div className='user-page'>
                 <UserNavContainer/>
-                <UserBodyContainer stockShow={this.props.location.state}/>      
+                <UserBodyContainer stockShow={this.props.location.state} pathName={this.props.location.pathname}/>      
                 <div className='extra'/>
             </div>
         )
