@@ -11,13 +11,20 @@ class SearchBar extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        debugger
+        if (prevProps.props.pathName !== this.props.props.pathName) {
+            this.setState({fragment: ''})
+        }
+    }
+
     update() {
       
         return e => this.setState({fragment: e.currentTarget.value, 
                                     status: true}, () => this.props.props.fetchSearchResults(this.state.fragment))
         
     }
-
+    
 
     searchField() {
         return (

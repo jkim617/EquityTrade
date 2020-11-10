@@ -23,7 +23,7 @@ class Splash extends React.Component {
     
         const userPage = () => (
             <div className='user-page'>
-                <UserNavContainer/>
+                <UserNavContainer pathName={this.props.location.pathname}/>
                 <UserBodyContainer stockShow={this.props.location.state} pathName={this.props.location.pathname}/>      
                 <div className='extra'/>
             </div>
