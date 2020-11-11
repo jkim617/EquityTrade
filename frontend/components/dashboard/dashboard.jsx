@@ -236,7 +236,7 @@ class Dashboard extends React.Component {
             const full_return_perc = (((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))
             / this.props.state.portfolioValues[0].close)}
         
-            debugger
+           
         return (
             
             <div>

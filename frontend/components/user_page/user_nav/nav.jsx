@@ -11,7 +11,7 @@ class UserNav extends React.Component {
     }
 
     render() {
-        debugger
+      
         const linkTarget = {
             pathname: '/',
             key: Math.random(),

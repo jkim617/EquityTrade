@@ -11,14 +11,18 @@ import { addFunds } from '../../../actions/users_actions';
 import UserBody from './user_body';
 
 const mapStateToProps = (state, ownProps) => {
+    debugger
     let currentUser = state.session.id
 
     return {
         pathName: ownProps.pathName,
         user: state.entities.users[currentUser],
         transactions: Object.values(state.transactions),
-        prices: state.prices
+        prices: state.prices.prices,
+        companyDescription: state.prices.company
     };
+
+    
 };
 
 const mapDispatchToProps = dispatch => ({

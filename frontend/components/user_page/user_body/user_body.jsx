@@ -46,9 +46,14 @@ class UserBody extends React.Component {
             }
         } 
         else {
-            this.getStockPrices().then(() => {
-                return this.buildPortfolioValues()
-            })
+            const ticker = this.props.pathName.split('/')[2]
+            
+            this.props.fetchCompany(ticker).then(() => (
+                this.getStockPrices().then(() => {
+                    return this.buildPortfolioValues()
+                })
+            )   
+            )
         }
         
     }
@@ -269,8 +274,8 @@ class UserBody extends React.Component {
                     <div className='user-body-container'>
                         <div className='user-body-left'>
                             <Dashboard props={this.props} state={this.state} changeRange={this.changeRange} />
-                            <div className='about'>
-                                <About props={this.props}/>
+                            <div className='news'>
+                                <About props={this.props} state={this.state}/>
                             </div>
                             <div className='news'>
                                 <News state={this.state}/>
@@ -280,6 +285,7 @@ class UserBody extends React.Component {
                            
                         </div>
                     </div>
+                   
                 </div>
             )
         }

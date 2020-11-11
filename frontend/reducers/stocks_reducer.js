@@ -10,19 +10,20 @@ import {
 const stocksReducer = (state= {}, action) => {
     Object.freeze(state);
     let nextState = Object.assign({}, state);
+    debugger
    
     switch(action.type) {
         case RECEIVE_CURRENT_PRICE:
             nextState[action.ticker] = action.price;
             return nextState;
         case RECEIVE_INTRADAY_PRICES:
-            nextState = action.prices;
+            nextState['prices'] = action.prices;
             return nextState;
         case RECEIVE_HISTORICAL_PRICES:
-            nextState = action.prices;
+            nextState['prices'] = action.prices;
             return nextState;
         case RECEIVE_COMPANY:
-            nextState[action.ticker] = action.company;
+            nextState['company'] = action.company;
             return nextState;
         case RECEIVE_SEARCH:
             nextState['searchResults'] = action.searchResults;
