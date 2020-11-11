@@ -11,7 +11,7 @@ import { addFunds } from '../../../actions/users_actions';
 import UserBody from './user_body';
 
 const mapStateToProps = (state, ownProps) => {
-    debugger
+    
     let currentUser = state.session.id
 
     return {

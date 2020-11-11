@@ -50,7 +50,7 @@ class About extends React.Component {
     }
 
     render() {
-        debugger
+        
         if (this.props.props.companyDescription !== undefined){
             return(
                 <div className='news'>

@@ -44,10 +44,12 @@ class Portfolio extends React.Component {
     
     
     renderPortfolioList() {
-
+        debugger
         const names = this.getPortfolio();
 
         const arrayNames = Object.keys(names);
+
+        if (arrayNames.length === 0) {return null;}
 
         if (Object.keys(this.props.props.prices).length > 0) {
             const keyRange = this.props.props.prices[arrayNames[0]]['intraday-prices'] === undefined ? 'chart' : 'intraday-prices'

@@ -236,67 +236,69 @@ class Dashboard extends React.Component {
             const full_return_perc = (((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))
             / this.props.state.portfolioValues[0].close)}
         
-           
-        return (
+       
+       
+            return (
+                
+                <div>
+                {this.renderDepositForm()}
+                <div className='dashboard'>
             
-            <div>
-            {this.renderDepositForm()}
-            <div className='dashboard'>
-        
-                <div className='portfolio-tooltip'>
-                        <div className='portfolio-tooltip-stockname'>{this.props.props.pathName.split("/")[2]}</div>
-                    <div className='portfolio-balance'>
-  
-                        {this.renderPortfolioBalance()}
-                            {/* ${this.props.state.portfolioValues.length > 0  ? 
-                                // (this.props.state.portfolioValues[0].close === NaN) ? 'This stock is not available on this platform':
-                                (this.state.status === false? 
-                                    this.state.value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : this.props.state.portfolioValues[0].close.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
-                                            )
-                                : this.props.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} */}
-                    </div>
-                    <div className='portfolio-return'>
-                            {this.props.state.portfolioValues.length > 0 ?
-                            (!this.state.status ?
-                                (
-                                (this.state.return_perc > 0 ? '+' : '-') + '$' + 
-                                Math.abs(parseFloat(this.state.return_dollar)).toFixed(2)
-                                
-                                + ' (' + (this.state.return_perc > 0 ? '+' : '') + 
-                                
-                                    parseFloat(
-                                    (this.state.return_perc)*100
-                                    ).toFixed(2) + '%) ' ) :
-
+                    <div className='portfolio-tooltip'>
+                            {this.props.props.companyDescription !== undefined && this.props.props.pathName !== '/' ? <div className='portfolio-tooltip-stockname'>{this.props.props.companyDescription.companyName.split(/,| /)[0]}</div> : ''}
+                        <div className='portfolio-balance'>
+    
+                            {this.renderPortfolioBalance()}
+                                {/* ${this.props.state.portfolioValues.length > 0  ? 
+                                    // (this.props.state.portfolioValues[0].close === NaN) ? 'This stock is not available on this platform':
+                                    (this.state.status === false? 
+                                        this.state.value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : this.props.state.portfolioValues[0].close.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+                                                )
+                                    : this.props.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} */}
+                        </div>
+                        <div className='portfolio-return'>
+                                {this.props.state.portfolioValues.length > 0 ?
+                                (!this.state.status ?
                                     (
-                                        (((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close)) > 0 ? '+' : '-') + '$' +
-                                        Math.abs(((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))).toFixed(2)
-
-                                        + ' (' + (((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close)) > 0 ? '+' : '') +
-
+                                    (this.state.return_perc > 0 ? '+' : '-') + '$' + 
+                                    Math.abs(parseFloat(this.state.return_dollar)).toFixed(2)
+                                    
+                                    + ' (' + (this.state.return_perc > 0 ? '+' : '') + 
+                                    
                                         parseFloat(
-                                            ((((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))
-                                                / this.props.state.portfolioValues[0].close)) * 100
-                                        ).toFixed(2) + '%) ')
-                                     
-                                     ) : '' }
-                                    <span className='range-string'>{this.rangeString()}</span>
-                    </div>
-                </div>
-                <div className={this.props.state.range === '1D' ? 'main-chart-1d' : 'main-chart-rest'}>{renderLineChart}</div>
-                <div className={this.signReturn() === '+' ? 'frequency-bar' : 'frequency-bar-red'}>
-                    <button className={this.highlightFrequency('1D')} value='1D' onClick={this.handleClick}>1D</button>
-                    <button className={this.highlightFrequency('1W')} value='1W' onClick={this.handleClick}>1W</button>
-                    <button className={this.highlightFrequency('1M')} value='1M' onClick={this.handleClick}>1M</button>
-                    <button className={this.highlightFrequency('3M')} value='3M' onClick={this.handleClick}>3M</button>
-                    <button className={this.highlightFrequency('1Y')} value='1Y' onClick={this.handleClick}>1Y</button>
-                    {/* <button className={this.highlightFrequency('ALL')} value='ALL'>ALL</button> */}
-                </div>
-                {this.renderBuyingPower()}
+                                        (this.state.return_perc)*100
+                                        ).toFixed(2) + '%) ' ) :
 
-            </div>
-            </div>
-        )
+                                        (
+                                            (((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close)) > 0 ? '+' : '-') + '$' +
+                                            Math.abs(((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))).toFixed(2)
+
+                                            + ' (' + (((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close)) > 0 ? '+' : '') +
+
+                                            parseFloat(
+                                                ((((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))
+                                                    / this.props.state.portfolioValues[0].close)) * 100
+                                            ).toFixed(2) + '%) ')
+                                        
+                                        ) : '' }
+                                        <span className='range-string'>{this.rangeString()}</span>
+                        </div>
+                    </div>
+                    <div className={this.props.state.range === '1D' ? 'main-chart-1d' : 'main-chart-rest'}>{renderLineChart}</div>
+                    <div className={this.signReturn() === '+' ? 'frequency-bar' : 'frequency-bar-red'}>
+                        <button className={this.highlightFrequency('1D')} value='1D' onClick={this.handleClick}>1D</button>
+                        <button className={this.highlightFrequency('1W')} value='1W' onClick={this.handleClick}>1W</button>
+                        <button className={this.highlightFrequency('1M')} value='1M' onClick={this.handleClick}>1M</button>
+                        <button className={this.highlightFrequency('3M')} value='3M' onClick={this.handleClick}>3M</button>
+                        <button className={this.highlightFrequency('1Y')} value='1Y' onClick={this.handleClick}>1Y</button>
+                        {/* <button className={this.highlightFrequency('ALL')} value='ALL'>ALL</button> */}
+                    </div>
+                    {this.renderBuyingPower()}
+
+                </div>
+                </div>
+            )
+        
     }
 }
 

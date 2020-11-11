@@ -32,19 +32,20 @@ class UserBody extends React.Component {
     }
 
     componentDidMount() {
-        
+    
         if(this.props.pathName === '/') {
             
-            if(this.props.user.funds != 0) {
+            // if(this.props.user.funds != 0) {
                 this.props.fetchTransactions().then(() => (
                     this.getPortfolioPrices())).then(() => {
                         return this.buildPortfolioValues()
                     })
             }
-            else {
-                this.setState({ portfolioValues: [] })
-            }
-        } 
+            // else {
+            //     this.setState({ portfolioValues: [],
+            //                     redirect: true })
+            // }
+        // } 
         else {
             const ticker = this.props.pathName.split('/')[2]
             
@@ -59,7 +60,7 @@ class UserBody extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        
+      
         const ticker = this.props.pathName.split('/')[2]
         if (this.props.pathName === '/' ) {
            
@@ -117,7 +118,8 @@ class UserBody extends React.Component {
     getPortfolioPrices() {
         const names = this.getPortfolio();
         const tickers = Object.keys(names).join(',')
-        
+     
+        if (Object.keys(names).length === 0) {return null;};
       
         if (this.state.range === '1D') {
             return this.props.fetchIntradayPrices(tickers)
@@ -173,7 +175,8 @@ class UserBody extends React.Component {
         } else {
             namesArray = [ticker]}
         ;
-
+           
+        if (namesArray.length === 0 ) {this.setState({redirect: true})};
         
         
         const num = () => {
@@ -247,8 +250,7 @@ class UserBody extends React.Component {
     }
 
     render() {
-     
-
+    
         if (this.props.pathName === '/' && this.state.redirect === true) {
             
                 return (
