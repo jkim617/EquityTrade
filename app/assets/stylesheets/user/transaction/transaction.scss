@@ -1,0 +1,77 @@
+.transaction-table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.transaction-table-header {
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+}
+
+.transaction-table-mid-1 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.transaction-table-mid-1-shares {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.transaction-table-mid-2 {
+    display: flex;
+    flex-direction:column;
+    width: 100%;
+    align-items: center;
+}
+
+.estimated-cost {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.shares-input-close {
+    text-align: right;
+    font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.1px;
+    color: rgb(4,13, 20);
+    height: 36px;
+    border: 1px solid rgb(245,248,250);
+    border-radius: 4px;
+    padding: 0px 16px 0px;
+    margin-top: 10px;
+    width: 60px;
+    background-color: rgb(245,248,250);
+    &:hover {
+        background-color: white;
+    }
+}
+
+.shares-input-open {
+    text-align: right;
+    font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.1px;
+    color: rgb(4,13, 20);
+    height: 36px;
+    border: 1px solid rgb(245,248,250);
+    border-radius: 4px;
+    padding: 0px 16px 0px;
+    margin-top: 10px;
+    width: 60px;
+    background-color: white;
+
+}

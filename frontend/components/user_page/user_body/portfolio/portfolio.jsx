@@ -44,7 +44,7 @@ class Portfolio extends React.Component {
     
     
     renderPortfolioList() {
-        debugger
+     
         const names = this.getPortfolio();
 
         const arrayNames = Object.keys(names);

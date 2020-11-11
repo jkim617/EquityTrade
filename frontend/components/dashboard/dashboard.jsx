@@ -245,7 +245,7 @@ class Dashboard extends React.Component {
                 <div className='dashboard'>
             
                     <div className='portfolio-tooltip'>
-                            {this.props.props.companyDescription !== undefined && this.props.props.pathName !== '/' ? <div className='portfolio-tooltip-stockname'>{this.props.props.companyDescription.companyName.split(/,| /)[0]}</div> : ''}
+                            {this.props.props.companyDescription !== undefined && this.props.props.companyDescription.symbol === this.props.props.pathName.split('/')[2] ? <div className='portfolio-tooltip-stockname'>{this.props.props.companyDescription.companyName.split(/,| /)[0]}</div> : ''}
                         <div className='portfolio-balance'>
     
                             {this.renderPortfolioBalance()}

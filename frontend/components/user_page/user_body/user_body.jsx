@@ -1,6 +1,7 @@
 import React from 'react';
 import Dashboard from '../../dashboard/dashboard';
 import Portfolio from './portfolio/portfolio';
+import Transaction from './transaction/transaction';
 import News from './news/news';
 import About from './stock_about/about';
 
@@ -49,10 +50,14 @@ class UserBody extends React.Component {
         else {
             const ticker = this.props.pathName.split('/')[2]
             
+            
             this.props.fetchCompany(ticker).then(() => (
-                this.getStockPrices().then(() => {
-                    return this.buildPortfolioValues()
-                })
+                this.props.fetchCurrentPrice(ticker).then(() => ( 
+                    this.getStockPrices().then(() => {
+                        return this.buildPortfolioValues()
+                    })
+                ))
+                
             )   
             )
         }
@@ -63,9 +68,9 @@ class UserBody extends React.Component {
       
         const ticker = this.props.pathName.split('/')[2]
         if (this.props.pathName === '/' ) {
-           
+        
             if ((this.props.user.funds !== prevProps.user.funds) || (this.state.range !== prevState.range)) {
-                
+           
                 this.props.fetchTransactions().then(() => (
                     this.getPortfolioPrices())).then(() => {
 
@@ -76,10 +81,19 @@ class UserBody extends React.Component {
                 this.setState({ noFunds: true })
             }
         } else if (this.state.range !== prevState.range || this.props.pathName !== prevProps.pathName) {
-         
-            this.getStockPrices().then(() => {
-                return this.buildPortfolioValues()
-            })
+            
+            this.props.fetchCompany(ticker).then(() => (
+                this.fetchCurrentPrice(ticker).then(() => (
+                    this.getStockPrices().then(() => {
+                        return this.buildPortfolioValues()
+                    })
+                ))
+
+            )
+                
+                
+            )
+            
         }
         
 
@@ -270,7 +284,7 @@ class UserBody extends React.Component {
                 )
          }
         else if(this.props.pathName != '/') {
-        
+         
             return (
                 <div className='user-body'>
                     <div className='user-body-container'>
@@ -284,7 +298,7 @@ class UserBody extends React.Component {
                             </div>
                         </div>
                         <div className='user-body-right'>
-                           
+                           <Transaction props={this.props} state={this.state}/>
                         </div>
                     </div>
                    
