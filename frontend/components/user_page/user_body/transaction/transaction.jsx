@@ -46,6 +46,19 @@ class Transaction extends React.Component {
         )
     }
 
+    renderError() {
+        
+    }
+
+    renderBottom() {
+        debugger
+        if (this.state.status = 'buy') {
+            return(
+            <div className={this.signReturn() === '+' ? 'transaction-table-bottom-text-green' : 'transaction-table-bottom-text-red'}>${this.props.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + ' Buying Power Available'}</div>
+            )
+        } 
+    }
+
     reviewBuyButton(e) {
     
         e.preventDefault();
@@ -104,7 +117,7 @@ class Transaction extends React.Component {
     }
 
     render() {
-       debugger
+     
         if (this.props.props.currentPrice !== undefined) {
           
             return (
@@ -144,7 +157,7 @@ class Transaction extends React.Component {
                     </div>
 
                     <div className='transaction-table-bottom'>
-                        <div className={this.signReturn() === '+' ? 'transaction-table-bottom-text-green' : 'transaction-table-bottom-text-red'}>${this.props.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + ' Buying Power Available'}</div>
+                        {this.renderBottom()}
                     </div>
                 </div>
             

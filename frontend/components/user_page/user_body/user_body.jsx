@@ -50,16 +50,18 @@ class UserBody extends React.Component {
         else {
             const ticker = this.props.pathName.split('/')[2]
             
+            this.props.fetchTransactions().then(() =>(
+                this.props.fetchCompany(ticker).then(() => (
+                    this.props.fetchCurrentPrice(ticker).then(() => (
+                        this.getStockPrices().then(() => {
+                            return this.buildPortfolioValues()
+                        })
+                    ))
+
+                )
+                )
+            ))
             
-            this.props.fetchCompany(ticker).then(() => (
-                this.props.fetchCurrentPrice(ticker).then(() => ( 
-                    this.getStockPrices().then(() => {
-                        return this.buildPortfolioValues()
-                    })
-                ))
-                
-            )   
-            )
         }
         
     }

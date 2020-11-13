@@ -1,5 +1,7 @@
 .user-body-container {
     display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .user-body {
@@ -7,12 +9,13 @@
     flex-direction: row;
     padding-top: 36px;
     justify-content: center;
+    margin-right: 15%;
 }
 
 .user-body-left {
     display: flex;
     flex-direction: column;
     width: 676px;
-    margin-right: 60px;
+    margin-right: 70px;
     margin-top: 20px;
 }
