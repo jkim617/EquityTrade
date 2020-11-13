@@ -31,8 +31,6 @@ class Transaction extends React.Component {
     }
     }
 
-    
-
 
     searchField() {
         return (
@@ -76,34 +74,49 @@ class Transaction extends React.Component {
     
     highlightTransactionSwitch(status) {
         if(this.state.status == status) {
-            return 'transaction-switch-highlight'
+            if(this.signReturn() === '+') {
+                return 'transaction-switch-highlight-green'
+            } else {
+                return 'transaction-switch-highlight-red'
+            }
+            
         } else {
-            return 'transaction-switch-none'
+            if(this.signReturn() === '+') {
+                return 'transaction-switch-none-green'
+            } else {
+                return 'transaction-switch-none-red'
+            }
         }
     }
 
     transactionSwitch(e) {
         e.preventDefault();
-        debugger
+       
         this.setState({status: e.currentTarget.value})
 
     }
 
+    signReturn() {
+        if (this.props.state.portfolioValues.length > 0) {
+            return ((((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))
+                / this.props.state.portfolioValues[0].close) >= 0 ? '+' : '')
+        }
+    }
+
     render() {
-       
+       debugger
         if (this.props.props.currentPrice !== undefined) {
           
             return (
                 <div className='transaction-table'>
+                   
                     <div className='transaction-table-header'>
-                        <div className='transaction-table-header-buy'>
-                            <button className={this.highlightTransactionSwitch('buy')} value='buy' onClick={this.transactionSwitch}>Buy</button>
-                        </div>
-                        <button className={this.highlightTransactionSwitch('sell')} value='sell' onClick={this.transactionSwitch}>Sell</button>
-                        <div className='transaction-table-header-sell'>
-
+                        <div className='transaction-table-header-2'>
+                            <button className={this.highlightTransactionSwitch('buy')} value='buy' onClick={this.transactionSwitch}>Buy {this.props.props.companyDescription.symbol}</button>
+                            <button className={this.highlightTransactionSwitch('sell')} value='sell' onClick={this.transactionSwitch}>Sell {this.props.props.companyDescription.symbol}</button>
                         </div>
                     </div>
+                  
 
                     <div className='transaction-table-mid-1'>
                         <div className='transaction-table-mid-1-shares'>
@@ -112,9 +125,9 @@ class Transaction extends React.Component {
                                 {this.searchField()}
                             </div>
                         </div>
-                        <div>
-                            <div className='market-price-title'>Market Price</div>
-                            <div className='market-price'>{this.props.props.currentPrice}</div>
+                        <div className='transaction-table-mid-1-market'>
+                            <div className={this.signReturn() === '+' ? 'market-price-title-green' : 'market-price-title-red'}>Market Price</div>
+                            <div className='market-price'>${this.props.props.currentPrice}</div>
                         </div>
 
                     </div>
@@ -127,11 +140,11 @@ class Transaction extends React.Component {
                         </div>
                         
 
-                        <button onClick={this.reviewBuyButton} className='deposit-funds-button'>{this.state.status === 'buy' ? 'Buy' : 'Sell'}</button>
+                        <button onClick={this.reviewBuyButton} className={this.signReturn() === '+' ? 'transaction-button-green' : 'transaction-button-red'}>{this.state.status === 'buy' ? 'Buy' : 'Sell'}</button>
                     </div>
 
                     <div className='transaction-table-bottom'>
-                        ${this.props.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + ' Buying Power Available'}
+                        <div className={this.signReturn() === '+' ? 'transaction-table-bottom-text-green' : 'transaction-table-bottom-text-red'}>${this.props.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + ' Buying Power Available'}</div>
                     </div>
                 </div>
             

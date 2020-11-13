@@ -81,9 +81,9 @@ class UserBody extends React.Component {
                 this.setState({ noFunds: true })
             }
         } else if (this.state.range !== prevState.range || this.props.pathName !== prevProps.pathName) {
-            
+           
             this.props.fetchCompany(ticker).then(() => (
-                this.fetchCurrentPrice(ticker).then(() => (
+                this.props.fetchCurrentPrice(ticker).then(() => (
                     this.getStockPrices().then(() => {
                         return this.buildPortfolioValues()
                     })
@@ -115,7 +115,7 @@ class UserBody extends React.Component {
 
     getStockPrices() {
         const ticker = this.props.pathName.split('/')[2]
-    
+   
         if (this.state.range === '1D') {
             return this.props.fetchIntradayPrices(ticker)
         } else if (this.state.range === '1W') {
