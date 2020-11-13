@@ -124,8 +124,8 @@ class Portfolio extends React.Component {
                 </div>
 
                 <div className='portfolio-dashboard-stocks'>
-                    <div className='portfolio-dashboard-title'>Watch List</div>
-                    
+                    <div className='portfolio-dashboard-title'>List</div>
+                    <div></div>
                 </div>
 
             </div>

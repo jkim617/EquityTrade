@@ -220,7 +220,7 @@ class UserBody extends React.Component {
             } else { return 1 }
         }
    
-
+        
         if (this.state.range === '1D') {
             if (ticker === undefined) {
                 namesArray.map(name => {
@@ -237,7 +237,7 @@ class UserBody extends React.Component {
                 })
             } else {
                 namesArray.map(name => {
-                    portfolio_values[name] = prices[name]['chart'].map(price => ({ time: price.label, close: price.close }))
+                    portfolio_values[name] = prices[name]['chart'].map(price => ({ date: price.date, time: price.label, close: price.close }))
             })
         }}
 
@@ -282,6 +282,8 @@ class UserBody extends React.Component {
                         redirect: true })
     }
 
+    
+
     render() {
     
         if (this.props.pathName === '/' && this.state.redirect === true) {
@@ -319,6 +321,7 @@ class UserBody extends React.Component {
                         <div className='user-body-right'>
                            <Transaction props={this.props} state={this.state}/>
                         </div>
+                        
                     </div>
                    
                 </div>

@@ -137,6 +137,9 @@ class Dashboard extends React.Component {
         if (this.props.props.pathName === '/') {
             return(
                 <div className={this.state.depositFormStatus ? 'deposit-form' : 'deposit-form-hidden'}>
+                    <button className='deposit-close'onClick={this.closeDepositForm}>
+                        <img className='deposit-close' src="https://static.thenounproject.com/png/26894-200.png" alt="" />
+                    </button>
                     <div className='deposit-form-title'>Deposit Funds</div>
                     <div className='deposit-form-amount'>
                         <div>Amount</div>
@@ -148,9 +151,7 @@ class Dashboard extends React.Component {
                         />
                     </div>
                     <button className='deposit-submit' onClick={this.handleDepositSubmit}>Submit</button>
-                    <button onClick={this.closeDepositForm}>
-                        <img className='deposit-close' src="https://static.thenounproject.com/png/26894-200.png" alt="" />
-                    </button>
+                    
                 </div>
             )
         }
@@ -211,7 +212,7 @@ class Dashboard extends React.Component {
     }
 
     render() {
-     
+    
             const renderLineChart = (
                 <LineChart width={676} height={196} data={this.props.state.portfolioValues}>
                     <Tooltip content={<CustomToolTip range={this.props.state.range}/>}

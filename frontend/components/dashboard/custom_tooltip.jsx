@@ -9,8 +9,9 @@ class CustomToolTip extends React.Component {
   
 
     render() {
-        if (this.props.payload !== null && this.props.active) {
         
+        if (this.props.payload !== null && this.props.active) {
+         
             return (
             
                 <div className="custom-tooltip">
