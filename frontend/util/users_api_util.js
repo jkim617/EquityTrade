@@ -5,3 +5,5 @@ export const addFunds = (amount, id) => (
         data: { amount }
     })
 )
+
+// export const buyStock = ()

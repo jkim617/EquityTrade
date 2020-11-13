@@ -10,7 +10,7 @@ class Transaction extends React.Component {
             error: '',
             proceed: ''
         }
-
+      
         this.reviewBuyTransaction = this.reviewBuyTransaction.bind(this);
         this.reviewBuyButton = this.reviewBuyButton.bind(this);
         this.highlightTransationSwitch = this.highlightTransactionSwitch.bind(this);
@@ -19,10 +19,8 @@ class Transaction extends React.Component {
     }
 
     update() {
-        
-        
         return e => {
-
+            
             this.setState({
             fragment: e.currentTarget.value,
             error: '',
@@ -47,33 +45,96 @@ class Transaction extends React.Component {
     }
 
     renderError() {
-        
+        if (this.state.error === 'buy') {
+            return (
+                <div className = 'transaction-error'>
+                    <div className = 'error-header'>
+                        Not Enough Buying Power
+                    </div>
+                    <div>
+                        You only have enough buying power to purchase {(this.props.props.user.funds / this.props.props.currentPrice).toFixed(5)} shares of {this.props.props.companyDescription.symbol}.
+                    </div>
+                </div>
+            )
+        } else if (this.state.error === 'sell') {
+            let temp = this.getPortfolio();
+            let ticker = this.props.props.companyDescription.symbol;
+            return (
+                <div className = 'transaction-error'>
+                    <div className = 'error-header'>
+                        Not Enough Shares
+                    </div>
+                    <div>
+                        You can only sell up to {temp[ticker]} share(s) of {this.props.props.companyDescription.symbol}.
+                    </div>
+                </div>
+            )
+        }
     }
 
     renderBottom() {
-        debugger
-        if (this.state.status = 'buy') {
+      
+        if (this.state.status === 'buy') {
             return(
             <div className={this.signReturn() === '+' ? 'transaction-table-bottom-text-green' : 'transaction-table-bottom-text-red'}>${this.props.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + ' Buying Power Available'}</div>
             )
-        } 
+        } else {
+            
+            let temp = this.getPortfolio();
+            let ticker = this.props.props.companyDescription.symbol;
+            if (ticker in temp) {
+                return temp[ticker] + ' Shares Available '
+            }
+        }
+    }
+
+
+    getPortfolio() {
+        const names = {};
+
+        this.props.props.transactions.forEach(transaction => {
+            if (names[transaction.ticker]) {
+                names[transaction.ticker] += transaction.num_shares
+            }
+            else { names[transaction.ticker] = transaction.num_shares }
+        });
+
+        return names;
     }
 
     reviewBuyButton(e) {
     
         e.preventDefault();
         this.reviewBuyTransaction()
-        
+
+        this.enableTransaction()
+    }
+
+    enableTransaction() {
+        // if (this.state.proceed === 'buy') {
+
+        // }
     }
 
     reviewBuyTransaction() {
       
         const shares = parseFloat(this.state.fragment);
-        if (shares * this.props.props.currentPrice > this.props.props.user.funds) {
-            this.setState({error: 'buy'})
+        if (this.state.status === 'buy') {
+            if (shares * this.props.props.currentPrice > this.props.props.user.funds) {
+                this.setState({ error: 'buy' })
+            } else {
+                this.setState({ proceed: 'buy' })
+            }
         } else {
-            this.setState({proceed: 'buy'})
+            let temp = this.getPortfolio();
+            let ticker = this.props.props.companyDescription.symbol;
+            if (shares > temp[ticker]) {
+                this.setState({ error: 'sell'})
+            } else {
+                this.setState({ proceed: 'sell' })
+            }
         }
+            
     }
     
     renderEstimatedCost() {
@@ -105,7 +166,9 @@ class Transaction extends React.Component {
     transactionSwitch(e) {
         e.preventDefault();
        
-        this.setState({status: e.currentTarget.value})
+        this.setState({status: e.currentTarget.value,
+                        error: '',
+                        proceed: ''})
 
     }
 
@@ -117,7 +180,7 @@ class Transaction extends React.Component {
     }
 
     render() {
-     
+   
         if (this.props.props.currentPrice !== undefined) {
           
             return (
@@ -151,6 +214,7 @@ class Transaction extends React.Component {
                             <div>${this.renderEstimatedCost()}</div>
 
                         </div>
+                        {this.renderError()}
                         
 
                         <button onClick={this.reviewBuyButton} className={this.signReturn() === '+' ? 'transaction-button-green' : 'transaction-button-red'}>{this.state.status === 'buy' ? 'Buy' : 'Sell'}</button>
