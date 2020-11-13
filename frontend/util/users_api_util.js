@@ -6,4 +6,4 @@ export const addFunds = (amount, id) => (
     })
 )
 
-// export const buyStock = ()
+

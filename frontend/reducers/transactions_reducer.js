@@ -1,5 +1,6 @@
 import {
-    RECEIVE_TRANSACTIONS
+    RECEIVE_TRANSACTIONS,
+    CREATE_TRANSACTION
 } from '../actions/transactions_actions';
 
 const transactionsReducer = (state = {}, action) => {
@@ -9,8 +10,9 @@ const transactionsReducer = (state = {}, action) => {
     switch(action.type) {
 
         case RECEIVE_TRANSACTIONS:
-       
             return Object.assign(nextState, action.transactions);
+        case CREATE_TRANSACTION:
+            return Object.assign(nextState, action.transactions)
         default:
             return state
     }

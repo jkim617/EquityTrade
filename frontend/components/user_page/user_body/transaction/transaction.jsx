@@ -76,6 +76,7 @@ class Transaction extends React.Component {
       
         if (this.state.status === 'buy') {
             return(
+            
             <div className={this.signReturn() === '+' ? 'transaction-table-bottom-text-green' : 'transaction-table-bottom-text-red'}>${this.props.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + ' Buying Power Available'}</div>
             )
         } else {
@@ -94,9 +95,19 @@ class Transaction extends React.Component {
 
         this.props.props.transactions.forEach(transaction => {
             if (names[transaction.ticker]) {
-                names[transaction.ticker] += transaction.num_shares
+                if (transaction.order_type === 'buy') {
+                    names[transaction.ticker] += transaction.num_shares
+                } else {
+                    names[transaction.ticker] -= transaction.num_shares
+                }
             }
-            else { names[transaction.ticker] = transaction.num_shares }
+            else { 
+                if (transaction.order_type === 'buy') {
+                    names[transaction.ticker] = transaction.num_shares
+                } else {
+                    names[transaction.ticker] = transaction.num_shares * -1
+                }
+            }    
         });
 
         return names;
@@ -107,23 +118,33 @@ class Transaction extends React.Component {
         e.preventDefault();
         this.reviewBuyTransaction()
 
-        this.enableTransaction()
+       
     }
 
-    enableTransaction() {
-        // if (this.state.proceed === 'buy') {
-
-        // }
-    }
+    // enableTransaction() {
+    //     debugger
+    //     if (this.state.proceed !== '') {
+    //         this.props.props.addTransaction(this.props.props.user.id,
+    //                                 this.props.props.companyDescription.symbol,
+    //                                 this.props.props.currentPrice,
+    //                                 parseFloat(this.state.fragment),
+    //                                 this.state.proceed)
+    //     }
+    // }
 
     reviewBuyTransaction() {
-      
+      debugger
         const shares = parseFloat(this.state.fragment);
         if (this.state.status === 'buy') {
             if (shares * this.props.props.currentPrice > this.props.props.user.funds) {
                 this.setState({ error: 'buy' })
             } else {
-                this.setState({ proceed: 'buy' })
+                this.setState({ proceed: 'buy' }, () => this.props.props.addTransaction(
+                    this.props.props.user.id,
+                    this.props.props.companyDescription.symbol,
+                    this.props.props.currentPrice,
+                    parseFloat(this.state.fragment),
+                    this.state.proceed))
             }
         } else {
             let temp = this.getPortfolio();
@@ -131,7 +152,12 @@ class Transaction extends React.Component {
             if (shares > temp[ticker]) {
                 this.setState({ error: 'sell'})
             } else {
-                this.setState({ proceed: 'sell' })
+                this.setState({ proceed: 'sell' }, () => this.props.props.addTransaction(
+                    this.props.props.user.id,
+                    this.props.props.companyDescription.symbol,
+                    this.props.props.currentPrice,
+                    parseFloat(this.state.fragment),
+                    this.state.proceed))
             }
         }
             

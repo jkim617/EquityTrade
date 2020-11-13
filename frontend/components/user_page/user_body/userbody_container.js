@@ -4,9 +4,10 @@ import {
     fetchIntradayPrices,
     fetchHistoricalPrices,
     fetchCompany,
-    fetchCurrentPrice
+    fetchCurrentPrice,
 } from '../../../actions/stocks_actions';
-import { fetchTransactions } from '../../../actions/transactions_actions';
+import { fetchTransactions,
+         addTransaction } from '../../../actions/transactions_actions';
 import { addFunds } from '../../../actions/users_actions';
 
 import UserBody from './user_body';
@@ -33,7 +34,8 @@ const mapDispatchToProps = dispatch => ({
     fetchHistoricalPrices: (tickers, range) => dispatch(fetchHistoricalPrices(tickers, range)),
     fetchTransactions: () => dispatch(fetchTransactions()),
     fetchCompany: ticker => dispatch(fetchCompany(ticker)),
-    addFunds: (amount, id) => dispatch(addFunds(amount, id))
+    addFunds: (amount, id) => dispatch(addFunds(amount, id)),
+    addTransaction: (user_id, ticker, price, num_shares, order_type) => dispatch(addTransaction(user_id, ticker, price, num_shares, order_type))
     
 });
 
