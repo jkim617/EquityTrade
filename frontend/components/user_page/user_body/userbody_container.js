@@ -8,12 +8,13 @@ import {
 } from '../../../actions/stocks_actions';
 import { fetchTransactions,
          addTransaction } from '../../../actions/transactions_actions';
-import { addFunds } from '../../../actions/users_actions';
+import { addFunds,
+        refreshUser } from '../../../actions/users_actions';
 
 import UserBody from './user_body';
 
 const mapStateToProps = (state, ownProps) => {
-  
+    
     let currentUser = state.session.id
 
     return {
@@ -35,8 +36,8 @@ const mapDispatchToProps = dispatch => ({
     fetchTransactions: () => dispatch(fetchTransactions()),
     fetchCompany: ticker => dispatch(fetchCompany(ticker)),
     addFunds: (amount, id) => dispatch(addFunds(amount, id)),
-    addTransaction: (user_id, ticker, price, num_shares, order_type) => dispatch(addTransaction(user_id, ticker, price, num_shares, order_type))
-    
+    addTransaction: (user_id, ticker, price, num_shares, order_type) => dispatch(addTransaction(user_id, ticker, price, num_shares, order_type)),
+    refreshUser: id => dispatch(refreshUser(id))
 });
 
 export default connect(

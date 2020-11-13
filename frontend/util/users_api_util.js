@@ -6,4 +6,11 @@ export const addFunds = (amount, id) => (
     })
 )
 
+export const refreshUser = (id) => (
+    $.ajax({
+        method: 'GET',
+        url: `/api/users/${id}`
+    })
+)
+
 

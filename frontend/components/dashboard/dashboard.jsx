@@ -202,8 +202,10 @@ class Dashboard extends React.Component {
                     return('$' + this.props.state.portfolioValues[0].close.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'))
                 }
             }
-        } else {
+        } else if (this.props.props.pathName === '/') {
             return('$' + this.props.props.user.funds.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'))
+        } else {
+            return(<div>N/A in US</div>)
         }
         
     }

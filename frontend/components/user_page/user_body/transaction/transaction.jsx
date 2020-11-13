@@ -18,6 +18,8 @@ class Transaction extends React.Component {
 
     }
 
+  
+
     update() {
         return e => {
             
@@ -45,15 +47,18 @@ class Transaction extends React.Component {
     }
 
     renderError() {
+ 
+                
+
         if (this.state.error === 'buy') {
             return (
-                <div className = 'transaction-error'>
-                    <div className = 'error-header'>
+                <div className='transaction-error'>
+                    <div className='error-header'>
                         Not Enough Buying Power
-                    </div>
+                                </div>
                     <div>
                         You only have enough buying power to purchase {(this.props.props.user.funds / this.props.props.currentPrice).toFixed(5)} shares of {this.props.props.companyDescription.symbol}.
-                    </div>
+                                </div>
                 </div>
             )
         } else if (this.state.error === 'sell') {
@@ -73,7 +78,7 @@ class Transaction extends React.Component {
     }
 
     renderBottom() {
-      
+ 
         if (this.state.status === 'buy') {
             return(
             
@@ -85,6 +90,8 @@ class Transaction extends React.Component {
             let ticker = this.props.props.companyDescription.symbol;
             if (ticker in temp) {
                 return temp[ticker] + ' Shares Available '
+            } else {
+                return '0 Shares Available '
             }
         }
     }
@@ -116,51 +123,64 @@ class Transaction extends React.Component {
     reviewBuyButton(e) {
     
         e.preventDefault();
+    
         this.reviewBuyTransaction()
 
        
     }
 
-    // enableTransaction() {
-    //     debugger
-    //     if (this.state.proceed !== '') {
-    //         this.props.props.addTransaction(this.props.props.user.id,
-    //                                 this.props.props.companyDescription.symbol,
-    //                                 this.props.props.currentPrice,
-    //                                 parseFloat(this.state.fragment),
-    //                                 this.state.proceed)
-    //     }
-    // }
+    
+
+    componentDidMount() {
+       
+        if (this.state.proceed !== '') {
+            this.setState({proceed: '',
+                            fragment: ''})
+        } 
+    }
 
     reviewBuyTransaction() {
-      debugger
+      
         const shares = parseFloat(this.state.fragment);
         if (this.state.status === 'buy') {
             if (shares * this.props.props.currentPrice > this.props.props.user.funds) {
-                this.setState({ error: 'buy' })
+                this.setState({ error: 'buy'})
             } else {
-                this.setState({ proceed: 'buy' }, () => this.props.props.addTransaction(
+                this.setState({ proceed: 'buy', fragment: '' }, () => this.props.props.addTransaction(
                     this.props.props.user.id,
                     this.props.props.companyDescription.symbol,
                     this.props.props.currentPrice,
-                    parseFloat(this.state.fragment),
+                    shares,
                     this.state.proceed))
             }
         } else {
             let temp = this.getPortfolio();
             let ticker = this.props.props.companyDescription.symbol;
-            if (shares > temp[ticker]) {
+            if (shares > temp[ticker] || temp[ticker] === undefined) {
                 this.setState({ error: 'sell'})
             } else {
-                this.setState({ proceed: 'sell' }, () => this.props.props.addTransaction(
+                this.setState({ proceed: 'sell' ,
+                                fragment: ''}, () => this.props.props.addTransaction(
                     this.props.props.user.id,
                     this.props.props.companyDescription.symbol,
                     this.props.props.currentPrice,
-                    parseFloat(this.state.fragment),
+                    shares,
                     this.state.proceed))
             }
         }
             
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+     
+        if (((prevState.proceed === 'buy' && this.state.proceed === 'buy') || 
+        (prevState.proceed === 'sell' && this.state.proceed === 'sell')) && prevProps.props.user.funds == this.props.props.user.funds) {
+            this.props.props.refreshUser().then(() => this.setState({proceed: '', fragment: ''}))
+        }
+
+        if (prevProps.props.pathName !== this.props.props.pathName) {
+            this.setState({status: 'buy'})
+        }
     }
     
     renderEstimatedCost() {
@@ -243,7 +263,15 @@ class Transaction extends React.Component {
                         {this.renderError()}
                         
 
-                        <button onClick={this.reviewBuyButton} className={this.signReturn() === '+' ? 'transaction-button-green' : 'transaction-button-red'}>{this.state.status === 'buy' ? 'Buy' : 'Sell'}</button>
+                        {this.props.state.portfolioValues.length > 0 ? <button onClick={this.reviewBuyButton} className={this.signReturn() === '+' ? 'transaction-button-green' : 'transaction-button-red'}>{this.state.status === 'buy' ? 'Buy' : 'Sell'}</button>
+                            : <div className='transaction-error' >
+                                <div className='error-header'>
+                                    Not Available
+                                </div>
+                                <div>
+                                    {this.props.props.companyDescription.symbol} is not available for trading in the US.
+                                </div>
+                            </div >}
                     </div>
 
                     <div className='transaction-table-bottom'>

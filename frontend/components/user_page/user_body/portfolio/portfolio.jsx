@@ -17,12 +17,30 @@ class Portfolio extends React.Component {
 
     getPortfolio() {
         const names = {};
+
         this.props.props.transactions.forEach(transaction => {
             if (names[transaction.ticker]) {
-                names[transaction.ticker] += transaction.num_shares
+                if (transaction.order_type === 'buy') {
+                    names[transaction.ticker] += transaction.num_shares
+                } else {
+                    names[transaction.ticker] -= transaction.num_shares
+                }
             }
-            else { names[transaction.ticker] = transaction.num_shares }
+            else {
+                if (transaction.order_type === 'buy') {
+                    names[transaction.ticker] = transaction.num_shares
+                } else {
+                    names[transaction.ticker] = transaction.num_shares * -1
+                }
+            }
         });
+
+        Object.keys(names).forEach(ticker => {
+            if (names[ticker] === 0) {
+                delete names[ticker]
+            }
+        })
+
         return names;
     }
 

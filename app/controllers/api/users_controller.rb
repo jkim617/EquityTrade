@@ -17,6 +17,12 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = current_user
+    render "api/users/show"
+  end
+
+
   def update
     updated_funds = current_user.funds + params[:amount].to_f
     current_user.update(funds: updated_funds)
