@@ -53,7 +53,9 @@ class UserBody extends React.Component {
         else {
             const ticker = this.props.pathName.split('/')[2]
             
-            this.props.fetchTransactions().then(() =>(
+            this.props.fetchStockNews(ticker).then(() => (
+                this.props.fetchTransactions()
+            )).then(() =>(
                 this.props.fetchCompany(ticker).then(() => (
                     this.props.fetchCurrentPrice(ticker).then(() => (
                         this.getStockPrices().then(() => {
@@ -75,8 +77,11 @@ class UserBody extends React.Component {
         if (this.props.pathName === '/' ) {
         
             if ((this.props.user.funds !== prevProps.user.funds) || (this.state.range !== prevState.range)) {
-           
-                this.props.fetchTransactions().then(() => (
+                
+                this.props.fetchGeneralNews().then(() => (
+                    this.props.fetchTransactions()
+                ))
+                .then(() => (
                     this.getPortfolioPrices())).then(() => {
 
                         return this.buildPortfolioValues()
@@ -87,7 +92,10 @@ class UserBody extends React.Component {
             }
         } else if (this.state.range !== prevState.range || this.props.pathName !== prevProps.pathName) {
            
-            this.props.fetchCompany(ticker).then(() => (
+            this.props.fetchStockNews(ticker).then(() => (
+                this.props.fetchCompany(ticker)
+            ))
+            .then(() => (
                 this.props.fetchCurrentPrice(ticker).then(() => (
                     this.getStockPrices().then(() => {
                         return this.buildPortfolioValues()
@@ -286,6 +294,7 @@ class UserBody extends React.Component {
     }
 
     
+    
 
     render() {
     
@@ -297,7 +306,8 @@ class UserBody extends React.Component {
                             <div className='user-body-left'>
                                 <Dashboard props={this.props} state={this.state} changeRange={this.changeRange}/>
                                 <div className='news'>
-                                    <News state={this.state}/>
+                                    <News props = {this.props} state={this.state} renderNews={this.renderNews}/>
+                                    
                                 </div>
                             </div>
                             <div className='user-body-right'>
@@ -318,7 +328,8 @@ class UserBody extends React.Component {
                                 <About props={this.props} state={this.state}/>
                             </div>
                             <div className='news'>
-                                <News state={this.state}/>
+                                <News props={this.props} state={this.state} renderNews={this.renderNews}/>
+                                
                             </div>
                         </div>
                         <div className='user-body-right'>

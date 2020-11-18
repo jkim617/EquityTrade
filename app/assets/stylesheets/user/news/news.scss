@@ -21,8 +21,9 @@
 .news-button-container {
     display: flex;
     justify-content: center;
-    margin-top: 40px;
+    // margin-top: 40px;
     margin-bottom: 20px;
+    flex-direction: column;
 }
 
 .news-button {
@@ -137,4 +138,64 @@
 
 .extra {
     height: 300px;
+}
+
+.individual-news-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-height: 7.23%;
+    min-height: 7.23%;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    &:hover {
+        background-color: rgb(245,248,250)
+    }
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -.1px;
+    line-height: 20px;
+    font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+
+
+.individual-news-description {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 70%;
+    
+}
+
+.individual-news-header {
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    padding-bottom: 5px;
+}
+
+.news-source {
+    font-weight: 500;
+}
+
+.news-date {
+    margin-left: 2%;
+    color: rgb(111, 120, 126)
+}
+
+.news-headline {
+    font-weight: 700;
+    font-size: 15px;
+    padding-bottom: 5px;
+}
+
+.news-summary {
+    color: rgb(111, 120, 126)
+}
+
+.news-image-container {
+    width: 25%;
+    height: 100%;
 }

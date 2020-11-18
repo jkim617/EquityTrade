@@ -18,7 +18,7 @@ import UserBody from './user_body';
 const mapStateToProps = (state, ownProps) => {
     
     let currentUser = state.session.id
-    debugger
+  
     return {
         pathName: ownProps.pathName,
         user: state.entities.users[currentUser],
