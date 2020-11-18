@@ -1,9 +1,14 @@
 import React from 'react';
+import { LoopCircleLoading } from 'react-loadingg';
+
 import Dashboard from '../../dashboard/dashboard';
 import Portfolio from './portfolio/portfolio';
 import Transaction from './transaction/transaction';
 import News from './news/news';
 import About from './stock_about/about';
+
+
+
 
 class UserBody extends React.Component {
     constructor(props) {
@@ -14,14 +19,17 @@ class UserBody extends React.Component {
             portfolioValues: [],
             noFunds: false,
             redirect: false,
-            stockShow: false};
-
+            stockShow: false,
+        fetchInProgress: false};
+           
         this.getPortfolioPrices = this.getPortfolioPrices.bind(this);
         this.buildPortfolioValues = this.buildPortfolioValues.bind(this);
         this.getStockPrices = this.getStockPrices.bind(this);
         this.changeRange = this.changeRange.bind(this);
      
     }
+
+   
 
     changeRange(newRange) {
         
@@ -35,13 +43,17 @@ class UserBody extends React.Component {
     componentDidMount() {
     
         if(this.props.pathName === '/') {
+                this.setState ({fetchInProgress: true}, () => {
+                    this.props.fetchGeneralNews().then(() => (
+                        this.props.fetchTransactions())).then(() => (
+                            this.getPortfolioPrices())).then(() => {
+                                return this.buildPortfolioValues()
+                            })
+                })
+                
             
             // if(this.props.user.funds != 0) {
-            this.props.fetchGeneralNews().then(() => (
-                this.props.fetchTransactions())).then(() => (
-                    this.getPortfolioPrices())).then(() => {
-                        return this.buildPortfolioValues()
-                    })
+            
             
                 
             }
@@ -53,19 +65,22 @@ class UserBody extends React.Component {
         else {
             const ticker = this.props.pathName.split('/')[2]
             
-            this.props.fetchStockNews(ticker).then(() => (
-                this.props.fetchTransactions()
-            )).then(() =>(
-                this.props.fetchCompany(ticker).then(() => (
-                    this.props.fetchCurrentPrice(ticker).then(() => (
-                        this.getStockPrices().then(() => {
-                            return this.buildPortfolioValues()
-                        })
-                    ))
+            this.setState({fetchInProgress: true}, () => {
+                this.props.fetchStockNews(ticker).then(() => (
+                    this.props.fetchTransactions()
+                )).then(() => (
+                    this.props.fetchCompany(ticker).then(() => (
+                        this.props.fetchCurrentPrice(ticker).then(() => (
+                            this.getStockPrices().then(() => {
+                                return this.buildPortfolioValues()
+                            })
+                        ))
 
-                )
-                )
-            ))
+                    )
+                    )
+                ))
+            })
+            
             
         }
         
@@ -206,7 +221,7 @@ class UserBody extends React.Component {
 
     
     buildPortfolioValues() {
-     
+        debugger
         const ticker = this.props.pathName.split('/')[2];
         const portfolio_values = {};
         const prices = this.props.prices;
@@ -290,18 +305,28 @@ class UserBody extends React.Component {
        
         this.setState({ portfolioValues: finalized_portfolio,
                         noFunds: true,
-                        redirect: true })
+                        redirect: true,
+                        fetchInProgress: false })
     }
 
-    
+    renderLoading() {
+        if (this.state.fetchInProgress === true) {
+            return (
+                <div className='spinner'>
+                    <LoopCircleLoading color='#00C805'/>
+                </div>
+            )
+        }
+    }
     
 
     render() {
-    
+        
         if (this.props.pathName === '/' && this.state.redirect === true) {
             
                 return (
                     <div className='user-body'>
+                        {this.renderLoading()}
                         <div className='user-body-container'>
                             <div className='user-body-left'>
                                 <Dashboard props={this.props} state={this.state} changeRange={this.changeRange}/>
@@ -317,10 +342,11 @@ class UserBody extends React.Component {
                     </div>
                 )
          }
-        else if(this.props.pathName != '/') {
+        else if(this.props.pathName != '/' && this.state.portfolioValues.length > 0) {
          
             return (
                 <div className='user-body'>
+                
                     <div className='user-body-container'>
                         <div className='user-body-left'>
                             <Dashboard props={this.props} state={this.state} changeRange={this.changeRange} />
@@ -341,7 +367,12 @@ class UserBody extends React.Component {
                 </div>
             )
         }
-        return null;
+        return (
+            <div className='loading-screen'>
+                {this.renderLoading()}
+            </div>
+            
+        );
     }
 }
 

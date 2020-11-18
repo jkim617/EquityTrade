@@ -40,8 +40,17 @@ class News extends React.Component {
         const hour = check.getHours();
         const currentHour = currentCheck.getHours();
 
+        const min = check.getMinutes();
+        const currentMin = currentCheck.getMinutes();
+
         if (month === currentMonth && day === currentDay) {
-            return parseInt(hour - currentHour) + 'h'
+            if (hour === currentHour) {
+                return parseInt(currentMin - min) + ' min'
+            }
+            else {
+                return parseInt(currentHour - hour) + 'h'
+            }
+            
         } else {
             return monthsKey[month] + ' ' + parseInt(day)
         }

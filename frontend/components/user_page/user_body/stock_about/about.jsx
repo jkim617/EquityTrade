@@ -68,8 +68,8 @@ class About extends React.Component {
                    
                     </div>
                     
-                    <div className='news-button-container'>
-                        <a href={this.props.props.companyDescription.website}>
+                    <div className='news-button-adjust'>
+                        <a href={this.props.props.companyDescription.website} >
                             <button className={this.signReturn() === '+' ? 'news-button' : 'news-button-red'}>Learn More</button>
                         </a>
                     </div>
