@@ -37,10 +37,13 @@ class UserBody extends React.Component {
         if(this.props.pathName === '/') {
             
             // if(this.props.user.funds != 0) {
-                this.props.fetchTransactions().then(() => (
+            this.props.fetchGeneralNews().then(() => (
+                this.props.fetchTransactions())).then(() => (
                     this.getPortfolioPrices())).then(() => {
                         return this.buildPortfolioValues()
                     })
+            
+                
             }
             // else {
             //     this.setState({ portfolioValues: [],

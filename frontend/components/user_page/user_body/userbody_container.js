@@ -5,6 +5,8 @@ import {
     fetchHistoricalPrices,
     fetchCompany,
     fetchCurrentPrice,
+    fetchGeneralNews,
+    fetchStockNews
 } from '../../../actions/stocks_actions';
 import { fetchTransactions,
          addTransaction } from '../../../actions/transactions_actions';
@@ -16,14 +18,17 @@ import UserBody from './user_body';
 const mapStateToProps = (state, ownProps) => {
     
     let currentUser = state.session.id
-
+    debugger
     return {
         pathName: ownProps.pathName,
         user: state.entities.users[currentUser],
         transactions: Object.values(state.transactions),
         currentPrice: state.prices.currentPrice,
         prices: state.prices.prices,
-        companyDescription: state.prices.company
+        companyDescription: state.prices.company,
+        generalNews: state.prices.generalNews,
+        stockNews: state.prices.stockNews
+        
     };
 
     
@@ -37,7 +42,9 @@ const mapDispatchToProps = dispatch => ({
     fetchCompany: ticker => dispatch(fetchCompany(ticker)),
     addFunds: (amount, id) => dispatch(addFunds(amount, id)),
     addTransaction: (user_id, ticker, price, num_shares, order_type) => dispatch(addTransaction(user_id, ticker, price, num_shares, order_type)),
-    refreshUser: id => dispatch(refreshUser(id))
+    refreshUser: id => dispatch(refreshUser(id)),
+    fetchGeneralNews: () => dispatch(fetchGeneralNews()),
+    fetchStockNews: ticker => dispatch(fetchStockNews(ticker))
 });
 
 export default connect(
