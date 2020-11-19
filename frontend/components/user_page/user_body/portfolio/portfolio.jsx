@@ -68,7 +68,7 @@ class Portfolio extends React.Component {
         const arrayNames = Object.keys(names);
 
         if (arrayNames.length === 0) {return(
-            <div className='placeholder'></div>
+            <div className='placeholder'>Get started by adding "Buying Power" or searching for stocks through the searchbar!</div>
         ) 
             }
 
@@ -77,7 +77,8 @@ class Portfolio extends React.Component {
             
             if (this.props.props.prices === undefined || arrayNames.length === 0) {
                 return(
-                    <div className='placeholder'></div>
+                    <div className='placeholder'>
+                    </div>
                 ) 
                 }
         

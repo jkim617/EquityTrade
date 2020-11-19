@@ -5,9 +5,9 @@ class SplashBodyWords extends React.Component {
     render() {
         return (
             <div className='splashbodywords'>
-                <h1 className='splashbodyheader'>Investing for Everyone</h1>
-                <h1 className='splashbodydescription'>EquityTrade, a pioneer of commission-free investing, gives you
-                more ways to make your money work harder.</h1>
+                <div className='splashbodyheader'>Investing for Everyone</div>
+                <div className='splashbodydescription'>EquityTrade, a pioneer of commission-free investing, gives you
+                more ways to make your money work harder.</div>
                 
                 <Link to="/signup">
                     <button className="splashbody-signup">Sign Up</button>
