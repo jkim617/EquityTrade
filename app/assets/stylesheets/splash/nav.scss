@@ -51,14 +51,13 @@
      font-size: 26px;
      font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
      padding: 20px;
+     &:hover {
+         color: rgb(0,200,5);
+     }
      
 }
 
-.black-logo {
-    &:hover {
-        opacity: 0.5;
-    }
-}
+
 
 .subsubnav {
      display: flex;
@@ -111,9 +110,7 @@
     color: rgb(255,90,135);
 }
 
-.products-dropdown-crypto:hover {
-    filter: brightness(0.9);
-}
+
 
 .products-dropdown-down {
     display: none;
@@ -158,6 +155,12 @@
     filter: brightness(0.9);
 }
 
+.subsubnavproducts {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .subsubnavproducts:hover {
     color: rgb(0,200,5);
 }
@@ -168,4 +171,8 @@
 
 .subsubnavlearn:hover {
     color: rgb(0,200,5);
+}
+
+.arrow-icon {
+    padding-left: 10px;
 }

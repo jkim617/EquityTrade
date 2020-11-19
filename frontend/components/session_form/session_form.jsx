@@ -170,10 +170,10 @@ class SessionForm extends React.Component {
 
                                 <div className="signup-submit-links">
                                     <div className='signup-submit-started'>
-                                        {this.formTypeClass() ? "Already started?" : ""}
+                                        {this.formTypeClass() ? "Want to try demo account?" : ""}
                                     </div>
                                     
-                                    {this.formTypeClass() ? <Link className="signup-links-application" to='/login'>Log in to complete your application</Link> : ""}
+                                    {this.formTypeClass() ? <Link className="signup-links-application" to='/login'>Go to Log In Page for Demo Account</Link> : ""}
                                 </div> 
                             </div>
                             

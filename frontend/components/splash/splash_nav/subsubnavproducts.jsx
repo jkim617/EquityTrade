@@ -1,5 +1,7 @@
 import React from 'react';
-
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faChevronDown,
+        faChevronUp} from '@fortawesome/free-solid-svg-icons';
 import ProductsDropdown from './products_dropdown';
 
 class SubSubNavProducts extends React.Component {
@@ -20,19 +22,22 @@ class SubSubNavProducts extends React.Component {
     }
 
     renderArrow() {
+        const downArrow = <FontAwesomeIcon className='arrow-icon' icon={faChevronDown} />
+        const upArrow = <FontAwesomeIcon className='arrow-icon' icon={faChevronUp}/>
         if (this.state.arrow === 'down') {
-            return (<div className='arrow'>{'\u2228'}</div>)
+            return(<div>{downArrow}</div>)
         } else {
-            return (<div className='arrow'>{'\u2227'}</div>)
+            return (<div>{upArrow}</div>)
         }
     }
 
 
     render() {
+        
         return(
             <div>
                 <button className='subsubnavproducts' onClick={this.changeArrow}>
-                    <div className='subsubnavproductsword'>Products</div>
+                    <div className='subsubnavproductsword'>About Me</div>
                     {this.renderArrow()}
                 </button>
                 
