@@ -39,23 +39,21 @@ class News extends React.Component {
         const day = check.getDate();
         const currentDay = currentCheck.getDate();
 
-        const hour = check.getHours();
-        const currentHour = currentCheck.getHours();
 
-        const min = check.getMinutes();
-        const currentMin = currentCheck.getMinutes();
+        const diff = currentCheck - check
 
-        if (month === currentMonth && day === currentDay) {
-            if (hour === currentHour) {
-                return parseInt(currentMin - min) + ' min'
-            }
-            else {
-                return parseInt(currentHour - hour) + 'h'
-            }
-            
+        if (diff < 3600000) {
+            return parseInt(Math.floor(diff / 60000)) + ' min'
+        } else if (diff < 864000000) {
+            return parseInt(Math.floor((diff/3600000))) + 'h'
         } else {
             return monthsKey[month] + ' ' + parseInt(day)
         }
+
+
+       
+    
+       
     }
 
     renderNewsSummary(summary) {
@@ -75,7 +73,7 @@ class News extends React.Component {
         if (news !== undefined) {
         return news.map((name, i) => {
             return (
-                <a href={name.qmUrl} className='individual-news-container'>
+                <a href={this.props.props.pathName === '/' ? name.qmUrl : name.url} className='individual-news-container'>
                     {/* <div className='individual-news-container'> */}
                     <div className='individual-news-description'>
                         <div className='individual-news-header'>

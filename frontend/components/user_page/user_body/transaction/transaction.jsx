@@ -179,7 +179,11 @@ class Transaction extends React.Component {
         }
 
         if (prevProps.props.pathName !== this.props.props.pathName) {
-            this.setState({status: 'buy'})
+            this.setState({
+                fragment: '',
+                status: 'buy',
+                error: '',
+                proceed: ''})
         }
     }
     

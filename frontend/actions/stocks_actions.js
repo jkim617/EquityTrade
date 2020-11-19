@@ -4,6 +4,7 @@ export const RECEIVE_CURRENT_PRICE = 'RECEIVE_CURRENT_PRICE';
 export const RECEIVE_INTRADAY_PRICES = 'RECEIVE_INTRADAY_PRICES';
 export const RECEIVE_HISTORICAL_PRICES = 'RECEIVE_HISTORICAL_PRICES';
 export const RECEIVE_COMPANY = 'RECEIVE_COMPANY';
+export const RECEIVE_COMPANY_STATS = 'RECEIVE_COMPANY_STATS';
 export const RECEIVE_SEARCH =  'RECEIVE_SEARCH';
 export const RECEIVE_STOCK_NEWS = 'RECEIVE_STOCK_NEWS';
 export const RECEIVE_GENERAL_NEWS = 'RECEIVE_GENERAL_NEWS';
@@ -36,6 +37,12 @@ const receiveCompany = (ticker, company) => ({
     ticker,
     company
 });
+
+const receiveCompanyStats = (ticker, stats) => ({
+    type: RECEIVE_COMPANY_STATS,
+    ticker,
+    stats
+})
 
 const receiveStockNews = (ticker, news) => ({
     type: RECEIVE_STOCK_NEWS,
@@ -94,4 +101,9 @@ export const fetchCompany = (ticker) => dispatch => (
     )
 ));
 
+export const fetchCompanyStats = (ticker) => dispatch => (
+    StocksAPIUtil.fetchCompanyStats(ticker).then(data => (
+        dispatch(receiveCompanyStats(ticker, data))
+    ))
+);
 

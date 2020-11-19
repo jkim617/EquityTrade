@@ -71,7 +71,8 @@ class UserBody extends React.Component {
                 this.props.fetchStockNews(ticker).then(() => (
                     this.props.fetchTransactions()
                 )).then(() => (
-                    this.props.fetchCompany(ticker).then(() => (
+                    this.props.fetchCompany(ticker)).then(() => (this.props.fetchCompanyStats(ticker)))
+                    .then(() => (
                         this.props.fetchCurrentPrice(ticker).then(() => (
                             this.getStockPrices().then(() => {
                                 return this.buildPortfolioValues()
@@ -80,7 +81,7 @@ class UserBody extends React.Component {
 
                     )
                     )
-                ))
+                )
             })
             
             
@@ -118,7 +119,11 @@ class UserBody extends React.Component {
             }
         } else {
             if (this.state.range !== prevState.range) {
-                this.props.fetchCurrentPrice(ticker).then(() => (
+                this.props.fetchCompany(ticker).then(() => (
+                    this.props.fetchCurrentPrice(ticker)
+                )).then(() => (this.props.fetchCompanyStats(ticker)))
+                .then(() => (this.props.fetchCurrentPrice(ticker)))
+                .then(() => (
                     this.getStockPrices().then(() => {
                         return this.buildPortfolioValues()
                     })
@@ -130,7 +135,7 @@ class UserBody extends React.Component {
                 this.setState({range: '1D'}, () => {
                     this.props.fetchStockNews(ticker).then(() => (
                         this.props.fetchCompany(ticker)
-                    ))
+                    )).then(() => (this.props.fetchCompanyStats(ticker)))
                         .then(() => (
                             this.props.fetchCurrentPrice(ticker).then(() => (
                                 this.getStockPrices().then(() => {
@@ -153,7 +158,7 @@ class UserBody extends React.Component {
     
     getPortfolio() {
         const names = {};
-        debugger
+  
         // this.props.transactions.forEach(transaction => {
         //     if (names[transaction.ticker]) {
         //         names[transaction.ticker] += transaction.num_shares

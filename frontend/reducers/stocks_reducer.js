@@ -3,6 +3,7 @@ import {
     RECEIVE_INTRADAY_PRICES,
     RECEIVE_HISTORICAL_PRICES,
     RECEIVE_COMPANY,
+    RECEIVE_COMPANY_STATS,
     RECEIVE_SEARCH,
     RECEIVE_GENERAL_NEWS,
     RECEIVE_STOCK_NEWS
@@ -25,6 +26,9 @@ const stocksReducer = (state= {}, action) => {
             return nextState;
         case RECEIVE_COMPANY:
             nextState['company'] = action.company;
+            return nextState;
+        case RECEIVE_COMPANY_STATS:
+            nextState['companyStats'] = action.stats;
             return nextState;
         case RECEIVE_SEARCH:
             nextState['searchResults'] = action.searchResults;

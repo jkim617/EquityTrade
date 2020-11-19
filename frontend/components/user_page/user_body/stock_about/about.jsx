@@ -18,40 +18,63 @@ class About extends React.Component {
     }
 
     renderCompanyFacts() {
+      
         const company = this.props.props.companyDescription
+        const stats = this.props.props.companyStats
         return(
-            <div className='company-facts-2'>
-                <div className='company-facts-3'>
-                    <div className='title'>CEO</div>
-                    {company['CEO']}
+            <div className='company-facts-1'>
+                <div className='company-facts-2'>
+                    <div className='company-facts-3'>
+                        <div className='title'>CEO</div>
+                        {company['CEO']}
+                    </div>
+                    <div className='company-facts-3'>
+                        <div className='title'>Market Cap</div>
+                        {(stats['marketcap']/1000000000).toFixed(2) + 'B'}
+                    </div>
                 </div>
-
-                <div className='company-facts-3'>
-                    <div className='title'>Employees</div>
-                    {company['employees']}
+                <div className='company-facts-2'>
+                    <div className='company-facts-3'>
+                        <div className='title'>Employees</div>
+                        {company['employees']}
+                    </div>
+                    <div className='company-facts-3'>
+                        <div className='title'>Price-Earnings Ratio</div>
+                        {stats['peRatio']}
+                    </div>
                 </div>
-
-                <div className='company-facts-3'>
-                    <div className='title'>Headquarters</div>
-                    {company['city'] + ', ' + company['state']}
+                <div className='company-facts-2'>
+                    <div className='company-facts-3'>
+                        <div className='title'>Headquarters</div>
+                        {company['city'] + ', ' + company['state']}
+                    </div>
+                    <div className='company-facts-3'>
+                        <div className='title'>Dividend Yield</div>
+                        {stats['dividendYield'] === null ? '-' : stats['dividendYield']}
+                    </div>
                 </div>
-
-                <div className='company-facts-3'>
-                    <div className='title'>Industry</div>
-                    {company['industry']}
+                <div className='company-facts-2'>
+                    <div className='company-facts-3'>
+                        <div className='title'>Industry</div>
+                        {company['industry']}
+                    </div>
+                    <div className='company-facts-3'>
+                        <div className='title'>Average 30-Day Volume</div>
+                        {(stats['avg30Volume'] / 1000000).toFixed(2) + 'M'}
+                    </div>
+                
                 </div>
-                {/* marketcap
-                pe ratio
-                dividend yield
-                average volumne */}
-
             </div>
+
+
+            
         )
     }
 
     render() {
         
-        if (this.props.props.companyDescription !== undefined){
+        if (this.props.props.companyDescription !== undefined && this.props.props.companyStats !== undefined){
+        
             return(
                 <div className='news'>
                     <div className={this.props.props.pathName === '/' ? 'news-header' : 'news-header-stock'}>About</div>

@@ -6,7 +6,8 @@ import {
     fetchCompany,
     fetchCurrentPrice,
     fetchGeneralNews,
-    fetchStockNews
+    fetchStockNews,
+    fetchCompanyStats
 } from '../../../actions/stocks_actions';
 import { fetchTransactions,
          addTransaction } from '../../../actions/transactions_actions';
@@ -27,8 +28,8 @@ const mapStateToProps = (state, ownProps) => {
         prices: state.prices.prices,
         companyDescription: state.prices.company,
         generalNews: state.prices.generalNews,
-        stockNews: state.prices.stockNews
-        
+        stockNews: state.prices.stockNews,
+        companyStats: state.prices.companyStats
     };
 
     
@@ -44,7 +45,8 @@ const mapDispatchToProps = dispatch => ({
     addTransaction: (user_id, ticker, price, num_shares, order_type) => dispatch(addTransaction(user_id, ticker, price, num_shares, order_type)),
     refreshUser: id => dispatch(refreshUser(id)),
     fetchGeneralNews: () => dispatch(fetchGeneralNews()),
-    fetchStockNews: ticker => dispatch(fetchStockNews(ticker))
+    fetchStockNews: ticker => dispatch(fetchStockNews(ticker)),
+    fetchCompanyStats: ticker => dispatch(fetchCompanyStats(ticker))
 });
 
 export default connect(
