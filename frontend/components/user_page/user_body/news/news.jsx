@@ -9,6 +9,8 @@ class News extends React.Component {
         if (this.props.state.portfolioValues.length > 0) {
             return ((((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))
                 / this.props.state.portfolioValues[0].close) >= 0 ? '+' : '')
+        } else {
+            return '+'
         }
     }
 
@@ -104,8 +106,10 @@ class News extends React.Component {
             <div className='news'>
                 <div className='news-header'>News</div>
                 <div className='news-button-container'>
+                    <div className='news-button-container-2'>
+                        {this.renderNews()}
+                    </div>
                     
-                    {this.renderNews()}
                     
                     
                     

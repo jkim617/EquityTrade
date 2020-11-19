@@ -10,6 +10,7 @@
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^16.13.1",
+    "react-loading": "^2.0.3",
     "react-loadingg": "^1.7.2",
     "react-promise-tracker": "^2.1.0",
     "react-redux": "^7.2.1",

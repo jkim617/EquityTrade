@@ -1,4 +1,6 @@
 import React from 'react';
+import { LoopCircleLoading } from 'react-loadingg';
+// import { Spinner } from 'react-bootstrap';
 
 import { LineChart,
         Line,
@@ -108,6 +110,8 @@ class Dashboard extends React.Component {
         if (this.props.state.portfolioValues.length > 0) {
             return ((((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))
                 / this.props.state.portfolioValues[0].close) >= 0 ? '+' : '')
+        } else {
+            return '+'
         }
         
     }
@@ -150,7 +154,7 @@ class Dashboard extends React.Component {
                             required
                         />
                     </div>
-                    <button className='deposit-submit' onClick={this.handleDepositSubmit}>Submit</button>
+                    <button className={this.signReturn() === '+' ? 'deposit-submit-green' : 'deposit-submit-red'} onClick={this.handleDepositSubmit}>Submit</button>
                     
                 </div>
             )
@@ -177,7 +181,7 @@ class Dashboard extends React.Component {
                             </div>
                             <div className='buying-station-1-3'>
                                 <div className='buying-margin'>Get More Buying Power with Margin</div>
-                                <button onClick={this.openDepositForm} className='deposit-funds-button'>Deposit Funds</button>
+                                <button onClick={this.openDepositForm} className={this.signReturn() === '+' ? 'deposit-funds-button-green' : 'deposit-funds-button-red'}>Deposit Funds</button>
                             </div>
                         </div>
                         <div className='buying-station-2'>
@@ -211,8 +215,19 @@ class Dashboard extends React.Component {
         
     }
 
-    render() {
+    renderLoadingStock() {
     
+        return (
+            <div className='spinner-stock'>
+                <LoopCircleLoading classname='spinner-stock-img' color={this.signReturn() === '+' ? '#00C805' : '#FF5000'} />
+            </div>
+        )
+     
+        
+    }
+
+    render() {
+      
             const renderLineChart = (
                 <LineChart width={676} height={196} data={this.props.state.portfolioValues}>
                     <Tooltip content={<CustomToolTip range={this.props.state.range}/>}
@@ -287,7 +302,7 @@ class Dashboard extends React.Component {
                                         <span className='range-string'>{this.rangeString()}</span>
                         </div>
                     </div>
-                    <div className={this.props.state.range === '1D' ? 'main-chart-1d' : 'main-chart-rest'}>{renderLineChart}</div>
+                    <div className={this.props.state.range === '1D' ? 'main-chart-1d' : 'main-chart-rest'}>{this.props.state.fetchInProgressChart === false ? renderLineChart: this.renderLoadingStock()}</div>
                     <div className={this.signReturn() === '+' ? 'frequency-bar' : 'frequency-bar-red'}>
                         <button className={this.highlightFrequency('1D')} value='1D' onClick={this.handleClick}>1D</button>
                         <button className={this.highlightFrequency('1W')} value='1W' onClick={this.handleClick}>1W</button>

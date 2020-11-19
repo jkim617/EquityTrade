@@ -67,12 +67,19 @@ class Portfolio extends React.Component {
 
         const arrayNames = Object.keys(names);
 
-        if (arrayNames.length === 0) {return null;}
+        if (arrayNames.length === 0) {return(
+            <div className='placeholder'></div>
+        ) 
+            }
 
         if (Object.keys(this.props.props.prices).length > 0) {
             const keyRange = this.props.props.prices[arrayNames[0]]['intraday-prices'] === undefined ? 'chart' : 'intraday-prices'
             
-            if (this.props.props.prices === undefined || arrayNames.length === 0) {return  }
+            if (this.props.props.prices === undefined || arrayNames.length === 0) {
+                return(
+                    <div className='placeholder'></div>
+                ) 
+                }
         
             return arrayNames.map((name, i) => {
 
@@ -125,7 +132,7 @@ class Portfolio extends React.Component {
 
                 <div className='portfolio-dashboard-stocks'>
                     <div className='portfolio-dashboard-title'>List</div>
-                    <div></div>
+                    <div className='placeholder'></div>
                 </div>
 
             </div>

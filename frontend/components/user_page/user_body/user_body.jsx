@@ -20,7 +20,8 @@ class UserBody extends React.Component {
             noFunds: false,
             redirect: false,
             stockShow: false,
-        fetchInProgress: false};
+        fetchInProgress: false,
+        fetchInProgressChart: false};
            
         this.getPortfolioPrices = this.getPortfolioPrices.bind(this);
         this.buildPortfolioValues = this.buildPortfolioValues.bind(this);
@@ -33,7 +34,8 @@ class UserBody extends React.Component {
 
     changeRange(newRange) {
         
-        this.setState({ range: newRange})
+        this.setState({ range: newRange,
+                            fetchInProgressChart: true})
         // this.setState({ range: newRange }, () => {
 
         //     this.getPortfolioPrices().then(() => this.buildPortfolioValues())
@@ -91,38 +93,59 @@ class UserBody extends React.Component {
         const ticker = this.props.pathName.split('/')[2]
         if (this.props.pathName === '/' ) {
         
-            if ((this.props.user.funds !== prevProps.user.funds) || (this.state.range !== prevState.range)) {
-                
-                this.props.fetchGeneralNews().then(() => (
+            if ((this.props.user.funds !== prevProps.user.funds)) {
+                this.setState({fetchInProgressChart: true}, () => {
                     this.props.fetchTransactions()
-                ))
-                .then(() => (
-                    this.getPortfolioPrices())).then(() => {
 
-                        return this.buildPortfolioValues()
-                    })
+                        .then(() => (
+                            this.getPortfolioPrices())).then(() => {
+
+                                return this.buildPortfolioValues()
+                            })
+                })
+               
+                
+            } else if (this.state.range !== prevState.range) {
+                this.props.fetchTransactions()
+                    .then(() => (
+                        this.getPortfolioPrices())).then(() => {
+
+                            return this.buildPortfolioValues()
+                        })
             }
             else if (this.state.noFunds === false) {
                 this.setState({ noFunds: true })
             }
-        } else if (this.state.range !== prevState.range || this.props.pathName !== prevProps.pathName) {
-           
-            this.props.fetchStockNews(ticker).then(() => (
-                this.props.fetchCompany(ticker)
-            ))
-            .then(() => (
+        } else {
+            if (this.state.range !== prevState.range) {
                 this.props.fetchCurrentPrice(ticker).then(() => (
                     this.getStockPrices().then(() => {
                         return this.buildPortfolioValues()
                     })
                 ))
+                
 
-            )
+            }
+            else if (this.props.pathName !== prevProps.pathName) {
+                this.setState({range: '1D'}, () => {
+                    this.props.fetchStockNews(ticker).then(() => (
+                        this.props.fetchCompany(ticker)
+                    ))
+                        .then(() => (
+                            this.props.fetchCurrentPrice(ticker).then(() => (
+                                this.getStockPrices().then(() => {
+                                    return this.buildPortfolioValues()
+                                })
+                            ))
+
+                        )
+
+
+                        )
+                })
                 
-                
-            )
-            
-        }
+            }
+        } 
         
 
 
@@ -130,7 +153,7 @@ class UserBody extends React.Component {
     
     getPortfolio() {
         const names = {};
-
+        debugger
         // this.props.transactions.forEach(transaction => {
         //     if (names[transaction.ticker]) {
         //         names[transaction.ticker] += transaction.num_shares
@@ -175,6 +198,7 @@ class UserBody extends React.Component {
     }
 
     getPortfolioPrices() {
+        if (this.props.transactions === undefined || (this.props.transactions && this.props.transactions.length === 0)) {return true;}
         const names = this.getPortfolio();
         const tickers = Object.keys(names).join(',')
      
@@ -221,7 +245,14 @@ class UserBody extends React.Component {
 
     
     buildPortfolioValues() {
-        debugger
+        
+        if (this.props.transactions === undefined || (this.props.transactions && this.props.transactions.length === 0)) {
+            this.setState({
+                redirect: true,
+                fetchInProgress: false,
+                fetchInProgressChart: false
+            }, () => { return })
+        };
         const ticker = this.props.pathName.split('/')[2];
         const portfolio_values = {};
         const prices = this.props.prices;
@@ -235,7 +266,7 @@ class UserBody extends React.Component {
             namesArray = [ticker]}
         ;
            
-        if (namesArray.length === 0 ) {this.setState({redirect: true})};
+        
         
         
         const num = () => {
@@ -245,7 +276,8 @@ class UserBody extends React.Component {
                 return 2
             } else { return 1 }
         }
-   
+        
+        
         
         if (this.state.range === '1D') {
             if (ticker === undefined) {
@@ -306,7 +338,8 @@ class UserBody extends React.Component {
         this.setState({ portfolioValues: finalized_portfolio,
                         noFunds: true,
                         redirect: true,
-                        fetchInProgress: false })
+                        fetchInProgress: false,
+                        fetchInProgressChart: false })
     }
 
     renderLoading() {
@@ -318,7 +351,65 @@ class UserBody extends React.Component {
             )
         }
     }
-    
+
+    getOriginalCost(curr_ticker) {
+        let buyCost = 0;
+        let sellCost = 0;
+        let transactions = this.props.transactions;
+
+        for (let i = 0; i < transactions.length; i ++) {
+            let transaction = transactions[i]
+            if (transaction.ticker === curr_ticker) {
+                if (transaction['order_type'] === 'buy') {
+                    buyCost += (transaction.price * transaction['num_shares'])
+                } else {
+                    sellCost += (transaction.price * transaction['num_shares'])
+                }
+            } 
+        }
+
+        let trueCost = buyCost - sellCost
+
+        return trueCost
+
+      
+    }
+
+    renderStockInfo() {
+        const names = this.getPortfolio();
+        const ticker = this.props.companyDescription.symbol;
+        const shareNums = ticker in names ? names[ticker] : 0;
+
+        if (this.props.currentPrice != undefined) {
+            const marketValue = this.props.currentPrice * shareNums;
+            const cost = this.getOriginalCost(ticker);
+            const totalReturn = marketValue - cost
+            return (
+                <div className='stock-user-info'>
+                    <div className='stock-user-info-header'>
+                        Your Market Value
+                    </div>
+                    <div className='stock-user-info-market-value'>
+                        ${marketValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+                    </div>
+                    <div className='stock-user-details'>
+                        <div>Cost</div>
+                        <div>${shareNums > 0 ? cost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : '0.00'}</div>
+                    </div>
+                    <div className='stock-user-details'>
+                        <div>Total Return</div>
+                        <div>{totalReturn > 0 ? '+' : '-'}{'$' + (Math.abs(totalReturn)).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+                            {totalReturn > 0 ? '(+' : '('}{(((marketValue - cost) / cost) * 100).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + '%)'}</div>
+                    </div>
+                    <div className='stock-user-details-last'>
+                        <div>Shares</div>
+                        <div>{shareNums}</div>
+                    </div>
+        
+                </div>
+            )
+        }
+    }
 
     render() {
         
@@ -350,6 +441,10 @@ class UserBody extends React.Component {
                     <div className='user-body-container'>
                         <div className='user-body-left'>
                             <Dashboard props={this.props} state={this.state} changeRange={this.changeRange} />
+                            <div className='user-stock-box'>
+                                
+                                {this.renderStockInfo()}
+                            </div>
                             <div className='news'>
                                 <About props={this.props} state={this.state}/>
                             </div>
@@ -367,12 +462,15 @@ class UserBody extends React.Component {
                 </div>
             )
         }
-        return (
-            <div className='loading-screen'>
-                {this.renderLoading()}
-            </div>
-            
-        );
+        else {
+            return (
+                <div className='loading-screen'>
+                    {this.renderLoading()}
+                </div>
+
+            );
+        }
+        
     }
 }
 

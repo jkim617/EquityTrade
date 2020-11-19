@@ -54,7 +54,7 @@ class About extends React.Component {
         if (this.props.props.companyDescription !== undefined){
             return(
                 <div className='news'>
-                    <div className='news-header'>About</div>
+                    <div className={this.props.props.pathName === '/' ? 'news-header' : 'news-header-stock'}>About</div>
                     <div className='company'>
                         <div className='company-description'>
                             {this.props.props.companyDescription.description}
