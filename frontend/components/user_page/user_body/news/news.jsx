@@ -6,6 +6,12 @@ class News extends React.Component {
     }
 
     signReturn() {
+        const exchanges = ['New York Stock Exchange', 'NASDAQ', 'NYSE Arca', 'Cboe BZX US Equities Exchange', 'NYSE American']
+        if (this.props.props.pathName !== '/' &&
+            this.props.props.companyDescription &&
+            !exchanges.includes(this.props.props.companyDescription.exchange)) {
+            return '-'
+        }
         if (this.props.state.portfolioValues.length > 0) {
             return ((((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))
                 / this.props.state.portfolioValues[0].close) >= 0 ? '+' : '')

@@ -19,6 +19,7 @@ const stocksReducer = (state= {}, action) => {
             nextState['currentPrice'] = action.price;
             return nextState;
         case RECEIVE_INTRADAY_PRICES:
+          
             nextState['prices'] = action.prices;
             return nextState;
         case RECEIVE_HISTORICAL_PRICES:
