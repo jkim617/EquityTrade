@@ -1,4 +1,4 @@
-class Stock < ApplicationRecord
+class List < ApplicationRecord
     validates :ticker, :user_id, presence: true
 
     belongs_to :user,
