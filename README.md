@@ -1,24 +1,37 @@
-# README
+# EquityTrade
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+EquityTrade is a single page web application inspired by Robinhood. The app allows logged in users to simulate trades and manage their portfolio using real-time data. Users have access to real-time data of stocks across most U.S. stock exchanges.
 
-Things you may want to cover:
+### [Live Site](https://equitytrade.herokuapp.com)
 
-* Ruby version
 
-* System dependencies
+## Table of Contents
+* [Technologies](#technologies)
+* [Features](#features)
+  * [Sign Up / Log In](#sign-up-/-log-in)
 
-* Configuration
+## Technologies
 
-* Database creation
+### Stacks/Languages
+* Ruby on Rails 5.2.4
+* React.js 16.13.1
+* Redux.js 4.0.5
+* Rechart 1.8.5
+* PostgreSQL 2.3.5
+* JavaScript
+* HTML
+* CSS
+* Webpack 4.44.2
 
-* Database initialization
+### APIs and External Libraries
+* IEX Cloud
+* Rechart 1.8.5
+* FontAwesome
 
-* How to run the test suite
+## Features
 
-* Services (job queues, cache servers, search engines, etc.)
+### Sign Up / Log In
 
-* Deployment instructions
+Users are able to create an account through the sign up page or log in to an existing account. Users also have the option to use the Demo account to have access to account-only features. 
 
-* ...
+
