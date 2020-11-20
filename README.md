@@ -2,7 +2,7 @@
 
 EquityTrade is a single page web application inspired by Robinhood. The app allows logged in users to simulate trades and manage their portfolio using real-time data. Users have access to real-time data of stocks across most U.S. stock exchanges.
 
-### [Live Site](https://www.equitytrade.herokuapp.com)
+### [Live Site](https://equitytrade.herokuapp.com)
 
 
 ## Table of Contents
