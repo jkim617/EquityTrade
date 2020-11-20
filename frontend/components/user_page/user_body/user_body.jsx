@@ -71,17 +71,17 @@ class UserBody extends React.Component {
                 this.props.fetchStockNews(ticker).then(() => (
                     this.props.fetchTransactions()
                 )).then(() => (
-                    this.props.fetchCompany(ticker)).then(() => (this.props.fetchCompanyStats(ticker)))
+                    this.props.fetchCompany(ticker))).then(() => (this.props.fetchCompanyStats(ticker)))
                     .then(() => (
-                        this.props.fetchCurrentPrice(ticker).then(() => (
-                            this.getStockPrices().then(() => {
+                        this.props.fetchCurrentPrice(ticker))).then(() => (
+                            this.getStockPrices())).then(() => {
                                 return this.buildPortfolioValues()
                             })
-                        ))
+                        
 
-                    )
-                    )
-                )
+                    
+                    
+                
             })
             
             
@@ -124,10 +124,9 @@ class UserBody extends React.Component {
                 )).then(() => (this.props.fetchCompanyStats(ticker)))
                 .then(() => (this.props.fetchCurrentPrice(ticker)))
                 .then(() => (
-                    this.getStockPrices().then(() => {
+                    this.getStockPrices())).then(() => {
                         return this.buildPortfolioValues()
                     })
-                ))
                 
 
             }
@@ -137,16 +136,10 @@ class UserBody extends React.Component {
                         this.props.fetchCompany(ticker)
                     )).then(() => (this.props.fetchCompanyStats(ticker)))
                         .then(() => (
-                            this.props.fetchCurrentPrice(ticker).then(() => (
-                                this.getStockPrices().then(() => {
+                            this.props.fetchCurrentPrice(ticker))).then(() => (
+                                this.getStockPrices())).then(() => {
                                     return this.buildPortfolioValues()
                                 })
-                            ))
-
-                        )
-
-
-                        )
                 })
                 
             }
@@ -307,7 +300,10 @@ class UserBody extends React.Component {
         for (let i = 0; i < portfolio_values[namesArray[0]].length; i += num()) {
             let total = 0;
             for (let j = 0; j < namesArray.length; j++) {
-                total += portfolio_values[namesArray[j]][i].close
+                if (portfolio_values[namesArray[j]][i] !== undefined) {
+                    total += portfolio_values[namesArray[j]][i].close
+                }
+                
             }
 
             if (this.state.range === '1D') {
@@ -355,6 +351,15 @@ class UserBody extends React.Component {
                 </div>
             )
         }
+        else {
+            if (this.props.pathName !== '/') {
+                return (
+                <div>API doesn't support this ticker.. :( Please search for different stock.</div>
+   
+            )
+            }
+            
+        }
     }
 
     getOriginalCost(curr_ticker) {
@@ -381,6 +386,9 @@ class UserBody extends React.Component {
     }
 
     renderStockInfo() {
+        if (this.props.companyDescription === undefined ) {
+            return null;
+        }
         const names = this.getPortfolio();
         const ticker = this.props.companyDescription.symbol;
         const shareNums = ticker in names ? names[ticker] : 0;
@@ -417,7 +425,7 @@ class UserBody extends React.Component {
     }
 
     render() {
-        
+      
         if (this.props.pathName === '/' && this.state.redirect === true) {
             
                 return (
@@ -438,7 +446,7 @@ class UserBody extends React.Component {
                     </div>
                 )
          }
-        else if(this.props.pathName != '/' && this.state.portfolioValues.length > 0) {
+        else if(this.props.pathName != '/' ) {
          
             return (
                 <div className='user-body'>

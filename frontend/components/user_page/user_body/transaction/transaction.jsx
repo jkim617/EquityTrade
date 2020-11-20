@@ -223,14 +223,37 @@ class Transaction extends React.Component {
     }
 
     signReturn() {
+        const exchanges = ['New York Stock Exchange', 'NASDAQ', 'NYSE Arca', 'Cboe BZX US Equities Exchange', 'NYSE American']
+        if (this.props.props.pathName !== '/' &&
+            this.props.props.companyDescription &&
+            !exchanges.includes(this.props.props.companyDescription.exchange)) {
+            return '-'}
         if (this.props.state.portfolioValues.length > 0) {
             return ((((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))
                 / this.props.state.portfolioValues[0].close) >= 0 ? '+' : '')
         }
     }
+    
+    checkTrade() {
+        const exchanges = ['New York Stock Exchange', 'NASDAQ', 'NYSE Arca','Cboe BZX US Equities Exchange','NYSE American']
+        const ticker = this.props.props.pathName.split('/')[2]
+        // if (this.props.props.prices[ticker] && this.props.props.prices[ticker]['intraday-prices'] &&
+        //     this.props.props.prices[ticker]['intraday-prices'].length > 1 && this.props.props.prices[ticker]['intraday-prices'].close > 0) {
+        //     return true
+        // } else if (this.props.props.prices[ticker] && this.props.props.prices[ticker].chart &&
+        //     this.props.props.prices[ticker].chart.length > 0 && this.props.props.prices[ticker].chart[0].close > 0){
+        //     return true
+        // }
+        // return false
+        if (exchanges.includes(this.props.props.companyDescription.exchange)) {
+            return true 
+        } else {
+            return false
+        }
+    }
 
     render() {
-   
+    
         if (this.props.props.currentPrice !== undefined) {
           
             return (
@@ -267,13 +290,13 @@ class Transaction extends React.Component {
                         {this.renderError()}
                         
 
-                        {this.props.state.portfolioValues.length > 0 ? <button onClick={this.reviewBuyButton} className={this.signReturn() === '+' ? 'transaction-button-green' : 'transaction-button-red'}>{this.state.status === 'buy' ? 'Buy' : 'Sell'}</button>
+                        {this.checkTrade() ? <button onClick={this.reviewBuyButton} className={this.signReturn() === '+' ? 'transaction-button-green' : 'transaction-button-red'}>{this.state.status === 'buy' ? 'Buy' : 'Sell'}</button>
                             : <div className='transaction-error' >
                                 <div className='error-header'>
                                     Not Available
                                 </div>
                                 <div>
-                                    {this.props.props.companyDescription.symbol} is not available for trading in the US.
+                                    {this.props.props.companyDescription.symbol} is not available for trading through this app.
                                 </div>
                             </div >}
                     </div>

@@ -45,8 +45,13 @@ class Dashboard extends React.Component {
 
     handleClick(e) {
         e.preventDefault();
-       
-        this.setState({status: true}, this.props.changeRange(e.target.value))
+        const exchanges = ['New York Stock Exchange', 'NASDAQ', 'NYSE Arca', 'Cboe BZX US Equities Exchange', 'NYSE American']
+        if (this.props.props.pathName === '/' ||  exchanges.includes(this.props.props.companyDescription.exchange)) {
+            this.setState({ status: true }, this.props.changeRange(e.target.value)) }
+        else {
+            return 
+        }
+        
     }
 
     handleDepositSubmit(e) {
@@ -107,6 +112,13 @@ class Dashboard extends React.Component {
     }
 
     signReturn() {
+     
+        const exchanges = ['New York Stock Exchange', 'NASDAQ', 'NYSE Arca', 'Cboe BZX US Equities Exchange', 'NYSE American']
+        if (this.props.props.pathName !== '/' &&
+            this.props.props.companyDescription && 
+            !exchanges.includes(this.props.props.companyDescription.exchange)) {
+            return '-'
+        }
         if (this.props.state.portfolioValues.length > 0) {
             return ((((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))
                 / this.props.state.portfolioValues[0].close) >= 0 ? '+' : '')
@@ -227,6 +239,7 @@ class Dashboard extends React.Component {
     }
 
     render() {
+       
       
             const renderLineChart = (
                 <LineChart width={676} height={196} data={this.props.state.portfolioValues}>

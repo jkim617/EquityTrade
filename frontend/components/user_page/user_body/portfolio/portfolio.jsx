@@ -59,10 +59,17 @@ class Portfolio extends React.Component {
                 )      
     }
 
-    
+    checkUndefined(data) {
+        for (let i = data.length-1; i >= 0; i --) {
+            if (data[i].close !== null) {
+                return data[i].close
+            }
+        }
+        return 0
+    }
     
     renderPortfolioList() {
-     
+        
         const names = this.getPortfolio();
 
         const arrayNames = Object.keys(names);
@@ -81,9 +88,9 @@ class Portfolio extends React.Component {
                     </div>
                 ) 
                 }
-        
+            
             return arrayNames.map((name, i) => {
-
+                
             
                 return (
                     <Link to={`/stocks/${name}`}>
@@ -96,16 +103,16 @@ class Portfolio extends React.Component {
                             {this.renderLineChart(this.props.props.prices[name][keyRange])}
                         </div>
                         <div className='portfolio-stock-name-3'>
-                            <div>${this.props.props.prices[name][keyRange].slice(-1)[0].close.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
+                            <div>${this.checkUndefined(this.props.props.prices[name][keyRange]).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
                             
-                            <div className={(((this.props.props.prices[name][keyRange].slice(-1)[0].close)
+                                <div className={(((this.checkUndefined(this.props.props.prices[name][keyRange]))
                                 - (this.props.props.prices[name][keyRange][0].close))
                                 / (this.props.props.prices[name][keyRange][0].close)) >= 0 ? 'positive-return' : 'negative-return'}>
                                 {(((this.props.props.prices[name][keyRange].slice(-1)[0].close)
                                     - (this.props.props.prices[name][keyRange][0].close))
                                     / (this.props.props.prices[name][keyRange][0].close)) >= 0 ? '+' : ''}
                                     {
-                                parseFloat((((this.props.props.prices[name][keyRange].slice(-1)[0].close) 
+                                        parseFloat((((this.checkUndefined(this.props.props.prices[name][keyRange])) 
                                     - (this.props.props.prices[name][keyRange][0].close))
                                     / (this.props.props.prices[name][keyRange][0].close))*100).toFixed(2)+'%'
                                 }

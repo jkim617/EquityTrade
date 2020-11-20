@@ -31,7 +31,7 @@ export const fetchCompany = (ticker) => {
     return $.ajax({
         method: 'GET',
         url: `https://cloud.iexapis.com/stable/stock/${ticker}/company?token=${prod_key}`
-        // url: `https://sandbox.iexapis.com/stable/stock/${ticker}/company?token=${test_key}`
+        // url: `https://sandbox.iexapis.com/st/able/stock/${ticker}/company?token=${test_key}`
     })
 }
 
