@@ -77,6 +77,10 @@ class Dashboard extends React.Component {
     }
 
     highlightFrequency(freq) {
+
+        if(this.signReturn() === 'na') {
+            return 'non-highlight-freq'
+        }
      
         if(this.props.state.range === freq) {
             if (this.signReturn() === '+') {
@@ -117,7 +121,7 @@ class Dashboard extends React.Component {
         if (this.props.props.pathName !== '/' &&
             this.props.props.companyDescription && 
             !exchanges.includes(this.props.props.companyDescription.exchange)) {
-            return '-'
+            return 'na'
         }
         if (this.props.state.portfolioValues.length > 0) {
             return ((((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))
