@@ -5,9 +5,7 @@ Rails.application.routes.draw do
     resources :stocks, only: [:index, :show]
     get '/stocks/:ticker', to: 'stocks#show'
     resource :session, only: [:create, :destroy, :show]
-    resources :transactions, only: [:create, :index, :show]
-    resources :lists, only: [:create, :index]
-    
+    resources :transactions, only: [:create, :index, :show]    
   end
 
   root "static_pages#root"
