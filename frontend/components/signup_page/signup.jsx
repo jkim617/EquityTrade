@@ -78,7 +78,7 @@ class SignUp extends React.Component {
                         </div>
 
                         <div className="signup-rightpage-1-text">
-                            Securities in your account are simulated. We offer unliminited funds, starting with $10,000.
+                            Securities in your account are simulated.
                         </div>
 
                         <div className="signup-rightpage-1-header">
