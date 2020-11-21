@@ -9,6 +9,14 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= favicon_link_tag asset_path('robinhood_logo-1.png') %>
     
+    <meta property="og:title" content="EquityTrade" />
+      <meta property='og:image' content="<%= image_url('equitytrade.png') %>"/>
+      <meta property="og:description"
+        content="EquityTrade is a full stack web app that allows useres to simulate trades and manage their portfolio."
+      />
+      <meta property="og:url"
+        content="https://equitytrade.herokuapp.com"
+      />
 
      
     <script type="text/javascript">

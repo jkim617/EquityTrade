@@ -73,7 +73,7 @@ Users can buy or sell stocks from the US stock exchanges. Error handling will pr
 
 ### News
 
-Users can view 10 most recent news articles regarding the a specific company or the general market, depending on the URL they are currently in. 
+Users can view 10 most recent news articles regarding a specific company or the general market, depending on the URL they are currently in. 
 
 
 ## Future Features
