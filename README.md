@@ -41,13 +41,19 @@ EquityTrade is a full stack single page stock trading application inspired by Ro
 
 Users are able to create an account through the sign up page or log in to an existing account. A demo account is available for users who want to access features without signing up.
 
+![alt text](https://github.com/jkim617/EquityTrade/blob/master/app/assets/images/Loginfeature.png)
+
 ### Dynamic Dashboard
 
 Users can see a real-time representation of their portfolio value based on the selected date range. The portfolio tab to the right includes all stocks currently owned by the logged user. The signature color alternates between green and red, depending on the return of the selected date range.
 
+![alt text](https://github.com/jkim617/EquityTrade/blob/master/app/assets/images/Dashboardfeature.png)
+
 ### Search Bar
 
 Users can search via a company's ticker/name. The search results update at every input change.
+
+![alt text](https://github.com/jkim617/EquityTrade/blob/master/app/assets/images/Searchfeature.png)
 
 ### Individual Company Page
 
@@ -57,9 +63,13 @@ The company page displays the dashboard, description and key stats of the compan
 
 Users can buy or sell stocks from the US stock exchanges. Error handling will prevent users from buying more than their current buying power and selling more than they own. Stocks not from the US stock exchanges will not be available for transactions. 
 
+![alt text](https://github.com/jkim617/EquityTrade/blob/master/app/assets/images/Transactionfeature.png)
+
 ### News
 
 Users can view 10 most recent news articles regarding the a specific company or the general market, depending on the URL they are currently in. 
+
+![alt text](https://github.com/jkim617/EquityTrade/blob/master/app/assets/images/News.png)
 
 ## Future Features
 
