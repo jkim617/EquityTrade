@@ -296,7 +296,7 @@ class UserBody extends React.Component {
                     portfolio_values[name] = prices[name]['chart'].map(price => ({ date: price.date, time: price.label, close: price.close }))
             })
         }}
-
+  
         for (let i = 0; i < portfolio_values[namesArray[0]].length; i += num()) {
             let total = 0;
             for (let j = 0; j < namesArray.length; j++) {

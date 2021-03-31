@@ -45,12 +45,13 @@ class Dashboard extends React.Component {
 
     handleClick(e) {
         e.preventDefault();
-        const exchanges = ['New York Stock Exchange', 'NASDAQ', 'NYSE Arca', 'Cboe BZX US Equities Exchange', 'NYSE American']
-        if (this.props.props.pathName === '/' ||  exchanges.includes(this.props.props.companyDescription.exchange)) {
-            this.setState({ status: true }, this.props.changeRange(e.target.value)) }
-        else {
-            return 
-        }
+        // const exchanges = ['New York Stock Exchange', 'NASDAQ', 'NYSE Arca', 'Cboe BZX US Equities Exchange', 'NYSE American']
+        // if (this.props.props.pathName === '/') {
+            this.setState({ status: true }, this.props.changeRange(e.target.value)) 
+        // }
+        // else {
+        //     return 
+        // }
         
     }
 
@@ -116,13 +117,13 @@ class Dashboard extends React.Component {
     }
 
     signReturn() {
-     
-        const exchanges = ['New York Stock Exchange', 'NASDAQ', 'NYSE Arca', 'Cboe BZX US Equities Exchange', 'NYSE American']
-        if (this.props.props.pathName !== '/' &&
-            this.props.props.companyDescription && 
-            !exchanges.includes(this.props.props.companyDescription.exchange)) {
-            return 'na'
-        }
+    
+        // const exchanges = ['New York Stock Exchange', 'NASDAQ', 'NYSE Arca', 'Cboe BZX US Equities Exchange', 'NYSE American']
+        // if (this.props.props.pathName !== '/' &&
+        //     this.props.props.companyDescription && 
+        //     !exchanges.includes(this.props.props.companyDescription.exchange)) {
+        //     return 'na'
+        // }
         if (this.props.state.portfolioValues.length > 0) {
             return ((((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))
                 / this.props.state.portfolioValues[0].close) >= 0 ? '+' : '')
@@ -243,8 +244,6 @@ class Dashboard extends React.Component {
     }
 
     render() {
-       
-      
             const renderLineChart = (
                 <LineChart width={676} height={196} data={this.props.state.portfolioValues}>
                     <Tooltip content={<CustomToolTip range={this.props.state.range}/>}
@@ -271,7 +270,7 @@ class Dashboard extends React.Component {
             const full_return_perc = (((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))
             / this.props.state.portfolioValues[0].close)}
         
-       
+        
        
             return (
                 

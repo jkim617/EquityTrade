@@ -47,9 +47,6 @@ class Transaction extends React.Component {
     }
 
     renderError() {
- 
-                
-
         if (this.state.error === 'buy') {
             return (
                 <div className='transaction-error'>
@@ -223,11 +220,11 @@ class Transaction extends React.Component {
     }
 
     signReturn() {
-        const exchanges = ['New York Stock Exchange', 'NASDAQ', 'NYSE Arca', 'Cboe BZX US Equities Exchange', 'NYSE American']
-        if (this.props.props.pathName !== '/' &&
-            this.props.props.companyDescription &&
-            !exchanges.includes(this.props.props.companyDescription.exchange)) {
-            return '-'}
+        // const exchanges = ['New York Stock Exchange', 'NASDAQ', 'NYSE Arca', 'Cboe BZX US Equities Exchange', 'NYSE American']
+        // if (this.props.props.pathName !== '/' &&
+        //     this.props.props.companyDescription &&
+        //     !exchanges.includes(this.props.props.companyDescription.exchange)) {
+        //     return '-'}
         if (this.props.state.portfolioValues.length > 0) {
             return ((((this.props.state.portfolioValues.slice(-1)[0].close) - (this.props.state.portfolioValues[0].close))
                 / this.props.state.portfolioValues[0].close) >= 0 ? '+' : '')
@@ -235,7 +232,12 @@ class Transaction extends React.Component {
     }
     
     checkTrade() {
-        const exchanges = ['New York Stock Exchange', 'NASDAQ', 'NYSE Arca','Cboe BZX US Equities Exchange','NYSE American']
+        return true
+        const exchanges = ['New York Stock Exchange', 
+                    "NEW YORK STOCK EXCHANGE, INC.", 
+                    'NASDAQ/NGS (GLOBAL SELECT MARKET)', 
+                    'NYSE Arca','Cboe BZX US Equities Exchange',
+                    'NYSE American']
         const ticker = this.props.props.pathName.split('/')[2]
         // if (this.props.props.prices[ticker] && this.props.props.prices[ticker]['intraday-prices'] &&
         //     this.props.props.prices[ticker]['intraday-prices'].length > 1 && this.props.props.prices[ticker]['intraday-prices'].close > 0) {
@@ -293,7 +295,7 @@ class Transaction extends React.Component {
                         {this.checkTrade() ? <button onClick={this.reviewBuyButton} className={this.signReturn() === '+' ? 'transaction-button-green' : 'transaction-button-red'}>{this.state.status === 'buy' ? 'Buy' : 'Sell'}</button>
                             : <div className='transaction-error' >
                                 <div className='error-header'>
-                                    Not Available
+                                    This Stock is traded on a Non-supported Stock Exchange ({this.props.props.companyDescription.exchange})
                                 </div>
                                 <div>
                                     {this.props.props.companyDescription.symbol} is not available for trading through this app.
